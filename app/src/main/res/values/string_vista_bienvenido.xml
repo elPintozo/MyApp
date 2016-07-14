@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnExit">Terminé</string>
+    <string name="btnStart">Comenzar</string>
+    <string name="lblProfile">User</string>
+</resources>
