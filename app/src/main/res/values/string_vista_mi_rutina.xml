@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnFinishedRoutine">No más por hoy</string>
+    <string name="btnaddExercise">Añadir Ejercicio</string>
+    <string name="lblTittleMyRoutine">Mi Rutina de hoy</string>
+    <string name="lblTime">Tiempo total: </string>
+</resources>

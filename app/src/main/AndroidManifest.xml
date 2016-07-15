@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ultimosEjerciciosController"></activity>
+        <activity android:name=".ultimosEjerciciosController" />
+        <activity android:name=".MiRutinaController"></activity>
     </application>
 
 </manifest>
