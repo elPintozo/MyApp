@@ -16,7 +16,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ultimosEjerciciosController" />
-        <activity android:name=".MiRutinaController"></activity>
+        <activity android:name=".MiRutinaController" />
+        <activity android:name=".SeleccionarMusculoController" />
+        <activity android:name=".SeleccionarEjercicioController" />
+        <activity android:name=".ComenzarEjercicioController"></activity>
     </application>
 
 </manifest>

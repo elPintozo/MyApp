@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tittleStartExercise">Comenzar ejericio</string>
+    <string name="lblWeightExercise">Peso: </string>
+    <string name="btnBreakExercise">Descanzar</string>
+    <string name="btnStartExercise">Comenzar</string>
+    <string name="btnFinishedExercise">Terminé ejercicio</string>
+    <string name="btnUnitKilo">Kilo</string>
+    <string name="btnUnitLibra">Libra</string>
+</resources>

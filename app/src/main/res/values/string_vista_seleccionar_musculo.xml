@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnReturnSelectedMuscle">Volver</string>
+    <string name="lblrecommendation">Recomendación:</string>
+    <string name="tittleSelectMuscle">Seleccionar musculo</string>
+</resources>
