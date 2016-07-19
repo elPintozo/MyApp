@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/imageView"
+            android:id="@+id/profileImage"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:background="@color/colorIcons"
@@ -25,8 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lblProfile"
-            android:id="@+id/lblNameProfile"
-            android:layout_below="@+id/imageView"
+            android:id="@+id/lblProfileName"
+            android:layout_below="@+id/profileImage"
             android:layout_centerHorizontal="true"
             style="@style/styleTittle" />
     </RelativeLayout>

@@ -36,7 +36,7 @@
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/listView5"
+                android:id="@+id/listRepeticiones"
                 android:background="@color/colorIcons"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -69,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/btnUnitKilo"
-                android:id="@+id/button8"
+                android:id="@+id/btnUmedida"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -105,7 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/btnBreakExercise"
-                android:id="@+id/button6"
+                android:id="@+id/btnDescanzar"
                 android:layout_weight="1"
                 style="@style/styleTextButtom"
                 android:background="@color/colorDivider"
@@ -115,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/btnStartExercise"
-                android:id="@+id/button7"
+                android:id="@+id/btnContinuarConEjercicio"
                 android:layout_weight="1"
                 style="@style/styleTextButtom"
                 android:background="@color/colorSecondaryText"
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/btnFinishedExercise"
-                android:id="@+id/button5"
+                android:id="@+id/btnTermineEjercicio"
                 style="@style/styleTextButtom"
                 android:background="@color/colorDivider" />
         </LinearLayout>

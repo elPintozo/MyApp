@@ -36,7 +36,7 @@
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/listView3"
+                android:id="@+id/listSeleccionarMusculo"
                 android:layout_marginTop="0dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
@@ -71,7 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/btnReturnSelectedMuscle"
-                android:id="@+id/button3"
+                android:id="@+id/btnVolverSeleccionarMusculo"
                 android:layout_weight="1"
                 style="@style/styleTextButtom"
                 android:background="@color/colorSecondaryText"
