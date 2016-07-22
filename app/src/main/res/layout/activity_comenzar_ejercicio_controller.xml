@@ -56,14 +56,20 @@
                 android:layout_weight="1"
                 style="@style/styleSubTittle" />
 
-            <EditText
+            <!--<EditText
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/editText"
+                android:id="@+id/txtPeso"
                 android:layout_weight="1"
                 android:background="@color/colorIcons"
                 android:textColor="@color/colorPrimary"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp" />-->
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/numberPicker"
+                android:layout_weight="1" />
 
             <Button
                 android:layout_width="0dp"
@@ -83,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="00:00"
-                android:id="@+id/textView12"
+                android:id="@+id/txtTiempoDescanzo"
                 style="@style/styleSubTittle"
                 android:layout_weight="1" />
 
@@ -91,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="00:00"
-                android:id="@+id/textView14"
+                android:id="@+id/txtTiempoRepeticion"
                 style="@style/styleSubTittle"
                 android:layout_weight="1" />
         </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btnRoutineStart">Comenzar nueva Rutina</string>
+    <string name="btnRetournMain">Volver</string>
     <string name="lblTitleRoutineStart">Últimos Musculos ejercitados</string>
 </resources>

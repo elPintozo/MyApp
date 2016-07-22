@@ -50,19 +50,30 @@
         android:layout_weight="3">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="3dp">
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/btnRetournMain"
+                android:id="@+id/btnVolverAMain"
+                android:layout_weight="1"
+                android:background="@color/colorDivider"
+                style="@style/styleTextButtom"
+                android:layout_margin="2dp" />
+
+            <Button
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/btnRoutineStart"
                 android:id="@+id/btnComenzarRutina"
                 android:background="@color/colorSecondaryText"
-                style="@style/styleTextButtom" />
+                style="@style/styleTextButtom"
+                android:layout_weight="1"
+                android:layout_margin="2dp" />
         </LinearLayout>
 
         <LinearLayout

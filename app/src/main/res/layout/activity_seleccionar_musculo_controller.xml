@@ -38,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/listSeleccionarMusculo"
                 android:layout_marginTop="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/colorIcons" />
         </LinearLayout>
     </LinearLayout>
@@ -57,16 +57,6 @@
             android:layout_weight="1"
             android:layout_margin="5dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/lblrecommendation"
-                android:id="@+id/textView4"
-                android:layout_weight="3"
-                style="@style/styleSubTittle"
-                android:textColor="@color/colorPrimary"
-                android:layout_margin="2dp" />
-
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -75,6 +65,16 @@
                 android:layout_weight="1"
                 style="@style/styleTextButtom"
                 android:background="@color/colorSecondaryText"
+                android:layout_margin="2dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/lblrecommendation"
+                android:id="@+id/txtRecomendacionSeleccionarMusculo"
+                android:layout_weight="1"
+                style="@style/styleSubTittle"
+                android:textColor="@color/colorPrimary"
                 android:layout_margin="2dp" />
 
         </LinearLayout>
