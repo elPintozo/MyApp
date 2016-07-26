@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -17,13 +18,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
+import Model.Ejercicio;
 import Model.Musculo;
+import Resource.InfoEjerciciosSinConexion;
 import Resource.InfoMusculoSinConexion;
 
 public class SeleccionarEjercicioController extends AppCompatActivity {
 
     private Button btnVolver;
-
+    private int idMusculo;
     private ListView listaSeleccionarEjercicio;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -35,7 +38,21 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_ejercicio_controller);
-
+        /******************************************************************************************/
+        //recibo info de la seleccion anterior
+        Intent i = getIntent();
+        Bundle recibir = i.getExtras();
+        if(recibir!=null){
+            String o = recibir.getString("idMusculo");
+            idMusculo =  Integer.parseInt(o);
+            //Toast toast = Toast.makeText(this, o, Toast.LENGTH_LONG);
+            //toast.show();
+        }
+        else{
+            //Toast toast = Toast.makeText(this, "no aporta nada", Toast.LENGTH_LONG);
+            //toast.show();
+            idMusculo = 1;
+        }
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnVolver = (Button) findViewById(R.id.btnVolverSeleccionarEjercicio);
@@ -72,20 +89,32 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     }
 
     private void cargarList(Context context) {
-        String[] Ejercicios = {};
-        ArrayList<String> musculoss = new ArrayList<>();
         ArrayAdapter<String> adaptador;
-        InfoMusculoSinConexion info = new InfoMusculoSinConexion(context);
-        ArrayList<Musculo> musculos = info.obtenerMusculos();
-
-        if (musculos != null) {
-
-        } else {
-            //musculos.add("");
-            //Ejercicios.a = "Ejercicio 1";//, "Ejercicio 2", "Ejercicio 3"};
-            //adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, musculos);
-            //listaSeleccionarEjercicio.setAdapter(adaptador);
+        InfoEjerciciosSinConexion info = new InfoEjerciciosSinConexion(context);
+        //------------------------------------------------------------------------------------------
+        /*ArrayList<Ejercicio> s = info.obtenerEjercicios();
+        String salida="";
+        for (Ejercicio e :s) {
+            salida = salida+e.idEjercicio+"\n";
         }
+
+        Toast toast = Toast.makeText(this, "Id: "+salida, Toast.LENGTH_LONG);
+        toast.show();*/
+        //------------------------------------------------------------------------------------------
+        ArrayList<Ejercicio> ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
+        ArrayList<String> listaEjerciciosOffLine = new ArrayList<>();
+
+
+        if (ejercicios != null) {
+            for (Ejercicio e :ejercicios) {
+                listaEjerciciosOffLine.add(e.nombreEjercicio);
+            }
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEjerciciosOffLine);
+        } else {
+            String[] listaEjercicios = {"Ejercicio 1"};//, "Ejercicio 2", "Ejercicio 3"};
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEjercicios);
+        }
+        listaSeleccionarEjercicio.setAdapter(adaptador);
     }
 
     @Override

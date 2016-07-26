@@ -13,7 +13,7 @@ public class Ejercicio {
     public ImageView imagenEjercicio;
     public int estado;
 
-    public Ejercicio(int idMusculo, int idEjercicio, String nombreEjercicio, String detalleEjercicio, int estado) {
+    public Ejercicio(int idEjercicio, int idMusculo, String nombreEjercicio, String detalleEjercicio, int estado) {
         this.idMusculo = idMusculo;
         this.idEjercicio = idEjercicio;
         this.nombreEjercicio = nombreEjercicio;

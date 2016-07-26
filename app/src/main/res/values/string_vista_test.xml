@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tittleTest">Test de datos Off-Line</string>
+    <string name="btnRetournTest">Volver</string>
+</resources>

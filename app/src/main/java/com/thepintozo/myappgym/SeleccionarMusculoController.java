@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import Model.Musculo;
+import Resource.InfoMusculoSinConexion;
+
 public class SeleccionarMusculoController extends AppCompatActivity {
 
     private Button btnVolver;
@@ -36,6 +41,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
                 //--(i+1)
                 finish();
                 Intent i2 = new Intent(SeleccionarMusculoController.this, SeleccionarEjercicioController.class);
+                i2.putExtra("idMusculo", Integer.toString(i+1));
                 startActivity(i2);
                 //--
             }
@@ -56,8 +62,22 @@ public class SeleccionarMusculoController extends AppCompatActivity {
     }
 
     private void cargarList() {
-        String[] Ejercicios = {"Ejercicio 1", "Ejercicio 2", "Ejercicio 3"};
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
+
+        ArrayAdapter<String> adaptador;
+        InfoMusculoSinConexion inf = new InfoMusculoSinConexion(this);
+        ArrayList<Musculo> musculos = inf.obtenerMusculos();
+
+        if(musculos!=null){
+            String[] Ejercicios = {"Hay info"};
+            ArrayList<String> nombres = new ArrayList<>();
+            for (Musculo m: musculos) {
+                nombres.add(m.nombreMusculo);
+            }
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombres);
+        }else{
+            String[] Ejercicios = {"Ejercicio 1", "Ejercicio 2", "Ejercicio 3"};
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
+        }
         listaSeleccionarMusculo.setAdapter(adaptador);
     }
 }

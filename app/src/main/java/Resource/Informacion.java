@@ -19,7 +19,7 @@ public class Informacion {
         infoMusculo = new InfoMusculoSinConexion(context);
         infoEjericio = new InfoEjerciciosSinConexion(context);
     }
-    public  void cargarInfo(){
+    public  void cargarInfo(Context context){
 
         ArrayList<Musculo> musculos     = new ArrayList<>();
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
@@ -37,6 +37,13 @@ public class Informacion {
         }
 
         if (infoEjericio.obtenerEjercicios().size()==0) {
+            InfoEjerciciosSinConexion f = new InfoEjerciciosSinConexion(context);
+            /*f.borrarEjercicio(1);
+            f.borrarEjercicio(4);
+            f.borrarEjercicio(7);
+            f.borrarEjercicio(10);
+            f.borrarEjercicio(13);
+            f.borrarEjercicio(19);*/
             ejercicios = cargarEjercicios();
         }
 
