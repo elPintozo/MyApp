@@ -65,18 +65,26 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_margin="5dp" />-->
 
-            <NumberPicker
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/numberPicker"
-                android:layout_weight="1" />
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/txtpeso"
+                android:layout_weight="1"
+                android:numeric="integer"
+                android:textIsSelectable="false"
+                android:textSize="18dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/btnUnitKilo"
                 android:id="@+id/btnUmedida"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:focusable="false" />
 
         </LinearLayout>
 
@@ -85,21 +93,24 @@
             android:layout_height="match_parent"
             android:layout_weight="4">
 
-            <TextView
+            <Chronometer
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="00:00"
-                android:id="@+id/txtTiempoDescanzo"
-                style="@style/styleSubTittle"
-                android:layout_weight="1" />
+                android:id="@+id/txtSegDescanso"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textSize="20dp" />
 
-            <TextView
+            <Chronometer
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="00:00"
-                android:id="@+id/txtTiempoRepeticion"
-                style="@style/styleSubTittle"
-                android:layout_weight="1" />
+                android:id="@+id/txtSegComenzarEjercicio"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textSize="20dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -125,7 +136,8 @@
                 android:layout_weight="1"
                 style="@style/styleTextButtom"
                 android:background="@color/colorSecondaryText"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:focusable="true" />
         </LinearLayout>
     </LinearLayout>
 

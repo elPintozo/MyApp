@@ -54,33 +54,6 @@ public class Informacion {
                 infoEjericio.cargarDatosDeEjercicio(e.idEjercicio, e.idMusculo, e.nombreEjercicio, e.detalleEjercicio);
             }
         }
-        /*ArrayList<Repeticion> repeticiones = new ArrayList<>();// = new ArrayList<>();
-
-        ArrayList<Rutina> rutinas = new ArrayList<>();//= new ArrayList<>();
-
-        ArrayList<RutinaRepeticion> rutinaRepeticions = new ArrayList<>();// = new ArrayList<>();
-        */
-        /* //repeticiones
-        if(repeticiones.size()!=0) {
-            for (int x = 0; x < repeticiones.size(); x++) {
-                Repeticion r = repeticiones.get(x);
-                cargarDatosDeRepeticion(r.getIdRepeticion(), r.getIdEjercicio(), r.getPeso(), r.getRepeticiones(), r.getTiempoDescanso(), r.getTiempoEjercicio(), r.getuMedida());
-            }
-        }*/
-        /* //rutinas
-        if(rutinas.size()!=0) {
-            for (int x = 0; x < rutinas.size(); x++) {
-                Rutina r = rutinas.get(x);
-                cargarDatosDeRutina(r.getIdRutina(), r.getFecha());
-            }
-        }*/
-        /* //rutinarepeticion
-        if(rutinaRepeticions.size()!=0) {
-            for (int x = 0; x < rutinaRepeticions.size(); x++) {
-                RutinaRepeticion r = rutinaRepeticions.get(x);
-                cargarDatosDeRutinaRepeticion(r.getIdRutina(), r.getIdRepeticion());
-            }
-        }*/
     }
     /**
      * Infomación predefinida para uso offline
@@ -172,4 +145,6 @@ public class Informacion {
 
         return ejercicios;
     }
+
+
 }

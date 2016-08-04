@@ -91,10 +91,10 @@ public class InfoEjerciciosSinConexion {
 
             while (c.moveToNext()){
                 Ejercicio e  = new Ejercicio(Integer.parseInt(c.getString(0)),
-                        Integer.parseInt(c.getString(1)),
-                        c.getString(2),
-                        c.getString(3),
-                        Integer.parseInt(c.getString(4)));
+                                             Integer.parseInt(c.getString(1)),
+                                             c.getString(2),
+                                             c.getString(3),
+                                             Integer.parseInt(c.getString(4)));
                 ejercicios.add(e);
             }
             return  ejercicios;
