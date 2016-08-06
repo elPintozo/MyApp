@@ -67,6 +67,8 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
                 //--(i+1)
                 finish();
                 Intent i2 = new Intent(SeleccionarEjercicioController.this, ComenzarEjercicioController.class);
+                i2.putExtra("idMusculo",idMusculo);
+                i2.putExtra("idEjercicio",i+1);
                 startActivity(i2);
             }
         });

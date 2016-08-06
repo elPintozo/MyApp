@@ -7,4 +7,5 @@
     <string name="btnFinishedExercise">Terminé ejercicio</string>
     <string name="btnUnitKilo">Kilo</string>
     <string name="btnUnitLibra">Libra</string>
+    <string name="lblrepetitins">N° de Series: </string>
 </resources>

@@ -12,8 +12,10 @@ import java.util.ArrayList;
 
 import Model.Ejercicio;
 import Model.Musculo;
+import Model.Rutina;
 import Resource.InfoEjerciciosSinConexion;
 import Resource.InfoMusculoSinConexion;
+import Resource.InfoRutinaSinConexion;
 import Resource.Informacion;
 
 public class testController extends AppCompatActivity {
@@ -21,13 +23,17 @@ public class testController extends AppCompatActivity {
     private Button btnVolver;
     private TextView testMusculo;
     private TextView testEjercicio;
+    private TextView testRutina;
+
     private Informacion info ;
     public InfoMusculoSinConexion infoMusculo;
     public InfoEjerciciosSinConexion infoEjericio;
+    public InfoRutinaSinConexion infoRutina;
 
     public testController() {
         infoMusculo = new InfoMusculoSinConexion(this);
         infoEjericio = new InfoEjerciciosSinConexion(this);
+        infoRutina = new InfoRutinaSinConexion(this);
     }
 
     @Override
@@ -43,6 +49,7 @@ public class testController extends AppCompatActivity {
         //Inicializo el titulo de la vista
         testMusculo = (TextView)findViewById(R.id.txtTestMusculo);
         testEjercicio = (TextView)findViewById(R.id.txtTestEjercicio);
+        testRutina = (TextView)findViewById(R.id.txtTestRutina);
 
         /******************************************************************************************/
         //asignacion Onclick a los botones
@@ -89,8 +96,25 @@ public class testController extends AppCompatActivity {
         else{
             txtMEjercicio = txtMEjercicio +"- No hay registros -";
         }
+        /******************************************************************************************/
+        // RUTINAS
+        /******************************************************************************************/
+        String txtRutina ="Resultados de la tabla Rutina: \n";
+        ArrayList<Rutina> rutinas = infoRutina.allRitunas();
+
+        if (rutinas.size()!=0){
+            txtRutina = txtRutina+" [Hay "+rutinas.size()+" en la bd]\n";
+            for (Rutina r: rutinas) {
+                txtRutina = txtRutina+"    [id: "+r.idRutina+"] "+r.fecha+"\n";
+            }
+        }
+        else {
+            txtRutina = txtRutina +"- No hay registros -";
+        }
+
 
         testMusculo.setText(txtMusculo);
         testEjercicio.setText(txtMEjercicio);
+        testRutina.setText(txtRutina);
     }
 }

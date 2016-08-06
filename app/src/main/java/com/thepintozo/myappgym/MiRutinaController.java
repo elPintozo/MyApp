@@ -13,14 +13,29 @@ public class MiRutinaController extends AppCompatActivity {
 
     private Button btnTerminePorHoy;
     private Button btnNuevoEjercicio;
-
+    private int idRutina;
+    private Extra extra;
     private ListView listaEjerciciosRealizados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_rutina_controller);
-
+        /******************************************************************************************/
+        //recibo info de la seleccion anterior
+        Intent i = getIntent();
+        Bundle recibir = i.getExtras();
+        if(recibir!=null){
+            String o = recibir.getString("idRutina");
+            idRutina =  Integer.parseInt(o);
+            extra.Mensaje(this,"id: "+idRutina);
+        }
+        else{
+            //Toast toast = Toast.makeText(this, "no aporta nada", Toast.LENGTH_LONG);
+            //toast.show();
+            idRutina = 1;
+        }
+        /******************************************************************************************/
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnNuevoEjercicio = (Button)findViewById(R.id.btnAnadirEjercicio);

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 import Model.Rutina;
 import Model.RutinaRepeticion;
 
@@ -50,9 +52,12 @@ public class InfoRutinaSinConexion {
         //si retorna un -1 es porque el registro ya existe
     }
 
-    public Rutina buscarRutina(int idRutina){
+    public Rutina buscarRutina(int fecha){
         Rutina r;
         SQLiteDatabase bd = data.getReadableDatabase();
+        //la fecha de la rutina que busco
+        String[] where ={Integer.toString(fecha)};
+
         String[] datosPedidos = {DataOffLine.DatosTablaRutina.COLUMNA_id,
                                  DataOffLine.DatosTablaRutina.COLUMNA_fecha,
                                  DataOffLine.DatosTablaRutina.COLUMNA_estado};
@@ -60,19 +65,26 @@ public class InfoRutinaSinConexion {
             // realizo la consulta
             Cursor c = bd.query( DataOffLine.DatosTablaRutina.NOMBRE_TABLA,
                     datosPedidos,
-                    null,null, null, null, null);
+                    DataOffLine.DatosTablaRutina.COLUMNA_fecha+"=?",
+                    where, null, null, null);
             while (c.moveToNext()){
                 r = new Rutina(Integer.parseInt(c.getString(0)),c.getString(1),Integer.parseInt(c.getString(2)));
+                return r;
             }
         }catch (Exception e){
             r = null;
+            return r;
         }
-        return new Rutina(0,"",1);
+        return null;
     }
 
-    public RutinaRepeticion buscarRutinaRepeticion(int idRutina, int idRepeticion){
+    public RutinaRepeticion buscarRutinaRepeticion(int idRutina){
         RutinaRepeticion rr;
         SQLiteDatabase bd = data.getReadableDatabase();
+
+        //el id del elemento que busco
+        String[] where ={Integer.toString(idRutina)};
+
         String[] datosPedidos = {DataOffLine.DatosTablaRutinaRepeticion.COLUMNA_idRutina,
                                  DataOffLine.DatosTablaRutinaRepeticion.COLUMNA_idRepeticion};
         try {
@@ -81,11 +93,51 @@ public class InfoRutinaSinConexion {
                     datosPedidos,
                     null,null, null, null, null);
             while (c.moveToNext()){
-
+                rr = new RutinaRepeticion(Integer.parseInt(c.getString(0)),Integer.parseInt(c.getString(1)));
+                return rr;
             }
         }catch (Exception e){
-
+            rr=null;
+            return rr;
         }
-        return new RutinaRepeticion(0,0);
+        return null;
+    }
+    public ArrayList<Rutina> allRitunas(){
+        ArrayList<Rutina> rutinas = new ArrayList<>();
+
+        SQLiteDatabase bd = data.getReadableDatabase();
+        String[] datosPedidos = {DataOffLine.DatosTablaRutina.COLUMNA_id,
+                DataOffLine.DatosTablaRutina.COLUMNA_fecha,
+                DataOffLine.DatosTablaRutina.COLUMNA_estado};
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaRutina.NOMBRE_TABLA,
+                    datosPedidos,
+                    null, null, null, null, null);
+            while (c.moveToNext()){
+                Rutina r = new Rutina(Integer.parseInt(c.getString(0)),c.getString(1),Integer.parseInt(c.getString(2)));
+                rutinas.add(r);
+            }
+        }catch (Exception e){
+            rutinas =null;
+            return rutinas;
+        }
+        return rutinas;
+    }
+
+    public int idProximaRutina(){
+        ArrayList<Rutina> rutinas = this.allRitunas();
+        if(rutinas.size()==0){
+            return 1;
+        }
+        else {
+            int id=0;
+            for (Rutina r: rutinas) {
+                if (r.idRutina>id){
+                    id=r.idRutina;
+                }
+            }
+            return (id+1);
+        }
     }
 }

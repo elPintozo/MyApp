@@ -91,6 +91,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="4" >
+
+            <TextView
+                style="@style/styleSubTittle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/lblrepetitins"
+                android:id="@+id/textView4"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/txtRepeticiones"
+                android:layout_weight="1"
+                android:numeric="integer"
+                android:textIsSelectable="false"
+                android:textSize="18dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="4">
 
             <Chronometer
@@ -100,7 +128,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
 
             <Chronometer
                 android:layout_width="match_parent"
@@ -109,7 +137,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
 
         </LinearLayout>
 

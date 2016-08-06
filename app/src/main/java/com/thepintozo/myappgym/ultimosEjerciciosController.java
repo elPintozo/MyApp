@@ -8,16 +8,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import Resource.InfoRutinaSinConexion;
+
 public class ultimosEjerciciosController extends AppCompatActivity {
 
     private Button btnComenzarRutina;
     private Button btnVolverAMain;
     private ListView listaUltimosEjercicios;
+
+    private InfoRutinaSinConexion infoRutina;
+    private Extra extra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ultimos_ejercicios_controller);
-
+        infoRutina = new InfoRutinaSinConexion(this);
+        extra =  new Extra();
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnComenzarRutina = (Button)findViewById(R.id.btnComenzarRutina);
@@ -36,6 +42,11 @@ public class ultimosEjerciciosController extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 Intent i = new Intent(ultimosEjerciciosController.this, MiRutinaController.class);
+                //crear un registro de la rutina y enviar id de ella
+                int id = infoRutina.idProximaRutina();
+                String fecha = extra.getFechaCompleta(1);
+                infoRutina.cargarDatosDeRutina(id,fecha);
+                i.putExtra("idRutina",id+"");
                 startActivity(i);
             }
         });
