@@ -15,6 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Model.Repeticion;
+import Model.Serie;
+import Resource.InfoRepeticionSinConexion;
 
 public class ComenzarEjercicioController extends AppCompatActivity {
 
@@ -32,6 +34,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     private ListView listRepeticiones;
     private int idMusculo;
     private int idEjercicio;
+    private int idRepeticion;
     private int Umedida=1;
     private int tiempoEjercicioInicial;
     private int tiempoDescansoInicial;
@@ -39,13 +42,13 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     private int tiempoDescansoFinal;
     private int repeticionesInicial;
     private int repeticionesFinal;
-    private ArrayList<Repeticion> repeticiones;
+    private ArrayList<Serie> series;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comenzar_ejercicio_controller);
-        repeticiones = new ArrayList<>();
+        series = new ArrayList<>();
         /******************************************************************************************/
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
@@ -53,14 +56,12 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         if(recibir!=null){
             idMusculo = recibir.getInt("idMusculo");
             idEjercicio = recibir.getInt("idEjercicio");
-            //Toast toast = Toast.makeText(this, o, Toast.LENGTH_LONG);
-            //toast.show();
+            idRepeticion = recibir.getInt("idRepeticion");
         }
         else{
-            //Toast toast = Toast.makeText(this, "no aporta nada", Toast.LENGTH_LONG);
-            //toast.show();
             idMusculo = 0;
             idEjercicio = 0;
+            idRepeticion=0;
         }
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
@@ -83,7 +84,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         /******************************************************************************************/
         //Inicializo lista correspondientes a la vista
         listRepeticiones = (ListView)findViewById(R.id.listRepeticiones);
-        cargarList();
+        actualizarSeries();
 
         /******************************************************************************************/
 
@@ -113,6 +114,11 @@ public class ComenzarEjercicioController extends AppCompatActivity {
                 tiempoDescansoFinal =  tiempoEjercicioFinal+tiempoDescansoFinal;
                 repeticionesInicial = Integer.parseInt(txtseries.getText().toString());
                 repeticionesFinal = repeticionesFinal + repeticionesInicial;
+
+                if(ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()))!=0){
+                    sumarSerie();
+                    actualizarSeries();
+                }
                 tiempoEjericio.setBase(SystemClock.elapsedRealtime());
                 tiempoEjericio.start();
                 tiempoDescanso.stop();
@@ -143,22 +149,31 @@ public class ComenzarEjercicioController extends AppCompatActivity {
             public void onClick(View view) {
                 tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
                 tiempoDescansoFinal =  tiempoEjercicioFinal+tiempoDescansoFinal;
-                //finish();
-                //Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
-                ayuda.Mensaje(getApplicationContext(),"IdEjercicio : "+idEjercicio+"\n"+
-                                                      "Peso        : "+txtpeso.getText()+"\n"+
-                                                      "Repeticiones: "+repeticionesFinal+"\n"+
-                                                      "T Descanso  : "+tiempoDescansoInicial+"\n"+
-                                                      "T Ejercicio : "+tiempoEjercicioInicial+"\n"+
-                                                      "U. Medida   : "+Umedida+"\n");
-                //startActivity(i);
+                finish();
+                Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
+                i.putExtra("idRepeticion",idRepeticion);
+                startActivity(i);
             }
         });
     }
-    private void cargarList() {
-        String[] Ejercicios = {"Ejercicio 1", "Ejercicio 2", "Ejercicio 3"};
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
+    private void actualizarSeries() {
+        ArrayList<String> seriess = new ArrayList<>();
+        if(series.size()!=0){
+            for (Serie s: series ) {
+                seriess.add("Series: "+s.veces+" Peso: "+s.peso+" Tiempo D: "+s.tDescanso+" T Ejercicio: "+s.tEjercicio);
+            }
+        }
+        else{
+            seriess.add("Vamos con todo.");
+        }
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, seriess);
         listRepeticiones.setAdapter(adaptador);
+    }
+
+    public void sumarSerie(){
+        Serie s  = new Serie(idRepeticion,Integer.parseInt(txtpeso.getText().toString()),repeticionesInicial,tiempoDescansoInicial,tiempoEjercicioInicial);
+        series.add(s);
     }
 }
 

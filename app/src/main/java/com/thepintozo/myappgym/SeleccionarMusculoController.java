@@ -18,13 +18,23 @@ import Resource.InfoMusculoSinConexion;
 public class SeleccionarMusculoController extends AppCompatActivity {
 
     private Button btnVolver;
-
+    private int idRutina;
     private ListView listaSeleccionarMusculo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_musculo_controller);
+        /******************************************************************************************/
+        Intent i = getIntent();
+        Bundle recibir = i.getExtras();
 
+        if(recibir!=null){
+            idRutina = recibir.getInt("idRutina");
+        }
+        else{
+            idRutina = 0;
+        }
+        /******************************************************************************************/
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnVolver = (Button)findViewById(R.id.btnVolverSeleccionarMusculo);
@@ -41,6 +51,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
                 //--(i+1)
                 finish();
                 Intent i2 = new Intent(SeleccionarMusculoController.this, SeleccionarEjercicioController.class);
+                i2.putExtra("idRutina", idRutina);
                 i2.putExtra("idMusculo", Integer.toString(i+1));
                 startActivity(i2);
                 //--

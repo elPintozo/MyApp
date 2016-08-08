@@ -67,6 +67,7 @@ public class MiRutinaController extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 Intent i2 = new Intent(MiRutinaController.this, SeleccionarMusculoController.class);
+                i2.putExtra("idRutina",idRutina);
                 startActivity(i2);
             }
         });

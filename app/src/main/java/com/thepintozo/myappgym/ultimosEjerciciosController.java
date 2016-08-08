@@ -18,12 +18,25 @@ public class ultimosEjerciciosController extends AppCompatActivity {
 
     private InfoRutinaSinConexion infoRutina;
     private Extra extra;
+    private int idRepeticion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ultimos_ejercicios_controller);
         infoRutina = new InfoRutinaSinConexion(this);
         extra =  new Extra();
+        /******************************************************************************************/
+        Intent i = getIntent();
+        Bundle recibir = i.getExtras();
+
+        if(recibir!=null){
+            idRepeticion = recibir.getInt("idRepeticion");
+        }
+        else{
+            idRepeticion=0;
+        }
+        /******************************************************************************************/
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnComenzarRutina = (Button)findViewById(R.id.btnComenzarRutina);
