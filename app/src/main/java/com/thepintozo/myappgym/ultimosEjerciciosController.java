@@ -18,7 +18,7 @@ public class ultimosEjerciciosController extends AppCompatActivity {
 
     private InfoRutinaSinConexion infoRutina;
     private Extra extra;
-    private int idRepeticion;
+    private int idRutina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class ultimosEjerciciosController extends AppCompatActivity {
         Bundle recibir = i.getExtras();
 
         if(recibir!=null){
-            idRepeticion = recibir.getInt("idRepeticion");
+            idRutina = recibir.getInt("idRutina");
         }
         else{
-            idRepeticion=0;
+            idRutina=0;
         }
         /******************************************************************************************/
         /******************************************************************************************/
@@ -59,7 +59,7 @@ public class ultimosEjerciciosController extends AppCompatActivity {
                 int id = infoRutina.idProximaRutina();
                 String fecha = extra.getFechaCompleta(1);
                 infoRutina.cargarDatosDeRutina(id,fecha);
-                i.putExtra("idRutina",id+"");
+                i.putExtra("idRutina",id);
                 startActivity(i);
             }
         });

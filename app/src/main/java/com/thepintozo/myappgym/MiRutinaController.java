@@ -26,9 +26,7 @@ public class MiRutinaController extends AppCompatActivity {
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
         if(recibir!=null){
-            String o = recibir.getString("idRutina");
-            idRutina =  Integer.parseInt(o);
-            extra.Mensaje(this,"id: "+idRutina);
+            idRutina = recibir.getInt("idRutina");
         }
         else{
             //Toast toast = Toast.makeText(this, "no aporta nada", Toast.LENGTH_LONG);

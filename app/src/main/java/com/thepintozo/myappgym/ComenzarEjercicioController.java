@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import Model.Repeticion;
 import Model.Serie;
 import Resource.InfoRepeticionSinConexion;
+import Resource.InfoRutinaSinConexion;
 
 public class ComenzarEjercicioController extends AppCompatActivity {
 
@@ -34,21 +35,23 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     private ListView listRepeticiones;
     private int idMusculo;
     private int idEjercicio;
-    private int idRepeticion;
+    private int idRutina;
     private int Umedida=1;
     private int tiempoEjercicioInicial;
     private int tiempoDescansoInicial;
-    private int tiempoEjercicioFinal;
-    private int tiempoDescansoFinal;
     private int repeticionesInicial;
     private int repeticionesFinal;
     private ArrayList<Serie> series;
 
+    private InfoRepeticionSinConexion infoRepeticion;
+    private InfoRutinaSinConexion infoRutina;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comenzar_ejercicio_controller);
         series = new ArrayList<>();
+        infoRepeticion = new InfoRepeticionSinConexion(this);
+        infoRutina =  new InfoRutinaSinConexion(this);
         /******************************************************************************************/
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
@@ -56,12 +59,12 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         if(recibir!=null){
             idMusculo = recibir.getInt("idMusculo");
             idEjercicio = recibir.getInt("idEjercicio");
-            idRepeticion = recibir.getInt("idRepeticion");
+            idRutina = recibir.getInt("idRutina");
         }
         else{
             idMusculo = 0;
             idEjercicio = 0;
-            idRepeticion=0;
+            idRutina=0;
         }
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
@@ -99,7 +102,6 @@ public class ComenzarEjercicioController extends AppCompatActivity {
                 tiempoDescanso.start();
                 tiempoEjericio.stop();
                 tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
-                tiempoEjercicioFinal = tiempoDescansoFinal + tiempoEjercicioInicial;
 
                 tiempoEjericio.setBase(SystemClock.elapsedRealtime());
             }
@@ -111,7 +113,6 @@ public class ComenzarEjercicioController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
-                tiempoDescansoFinal =  tiempoEjercicioFinal+tiempoDescansoFinal;
                 repeticionesInicial = Integer.parseInt(txtseries.getText().toString());
                 repeticionesFinal = repeticionesFinal + repeticionesInicial;
 
@@ -148,10 +149,11 @@ public class ComenzarEjercicioController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
-                tiempoDescansoFinal =  tiempoEjercicioFinal+tiempoDescansoFinal;
+                nuevaRepeticion();
+
                 finish();
                 Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
-                i.putExtra("idRepeticion",idRepeticion);
+                i.putExtra("idRutina",idRutina);
                 startActivity(i);
             }
         });
@@ -172,8 +174,25 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     }
 
     public void sumarSerie(){
-        Serie s  = new Serie(idRepeticion,Integer.parseInt(txtpeso.getText().toString()),repeticionesInicial,tiempoDescansoInicial,tiempoEjercicioInicial);
+        Serie s  = new Serie(series.size(),Integer.parseInt(txtpeso.getText().toString()),repeticionesInicial,tiempoDescansoInicial,tiempoEjercicioInicial);
         series.add(s);
+    }
+    public void nuevaRepeticion(){
+        int descansoTotal=0;
+        int ejercicioTotal=0;
+        int totalSeries=0;
+
+        if(series.size()!=0){
+            int id = infoRepeticion.proximaRepeticion();
+            int peso = Integer.parseInt(txtpeso.getText().toString());
+            for (Serie s: series) {
+                descansoTotal = descansoTotal+s.tDescanso;
+                ejercicioTotal = ejercicioTotal+s.tEjercicio;
+                totalSeries = totalSeries+s.veces;
+            }
+            infoRepeticion.cargarDatosDeRepeticion(id,idEjercicio,peso,totalSeries,descansoTotal,ejercicioTotal,Umedida);
+            infoRutina.cargarDatosDeRutinaRepeticion(idRutina,id);
+        }
     }
 }
 

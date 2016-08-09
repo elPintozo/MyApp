@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 import Model.Repeticion;
 
 /**
@@ -52,7 +54,8 @@ public class InfoRepeticionSinConexion {
         String[] where ={Integer.toString(idRepeticion)};
 
         //Que quiero obtener en el orden que quiero
-        String[] datosPedidos = {DataOffLine.DatosTablaRepeticion.COLUMNA_idEjercicio,
+        String[] datosPedidos = {DataOffLine.DatosTablaRepeticion.COLUMNA_id,
+                                 DataOffLine.DatosTablaRepeticion.COLUMNA_idEjercicio,
                                  DataOffLine.DatosTablaRepeticion.COLUMNA_peso,
                                  DataOffLine.DatosTablaRepeticion.COLUMNA_repeticiones,
                                  DataOffLine.DatosTablaRepeticion.COLUMNA_tiempoDescanso,
@@ -63,13 +66,74 @@ public class InfoRepeticionSinConexion {
             // realizo la consulta
             Cursor c = bd.query( DataOffLine.DatosTablaRepeticion.NOMBRE_TABLA,
                                  datosPedidos,
-                                 null,null, null, null, null);
+                                 DataOffLine.DatosTablaRepeticion.COLUMNA_id+"=?",
+                                 where, null, null, null);
             while (c.moveToNext()){
-
+                r = new Repeticion( Integer.parseInt(c.getString(0)),
+                                    Integer.parseInt(c.getString(1)),
+                                    Integer.parseInt(c.getString(2)),
+                                    Integer.parseInt(c.getString(3)),
+                                    Integer.parseInt(c.getString(4)),
+                                    Integer.parseInt(c.getString(5)),
+                                    Integer.parseInt(c.getString(6)));
+                return r;
             }
         }catch (Exception e){
-
+            r =null;
+            return r;
         }
         return new Repeticion(0,0,0,0,0,0,0);
+    }
+
+    public ArrayList<Repeticion> allRepeticion() {
+
+        ArrayList<Repeticion> repeticiones = new ArrayList<>();
+        //Conexion de consulta con la BD
+        SQLiteDatabase bd = data.getReadableDatabase();
+
+        //Que quiero obtener en el orden que quiero
+        String[] datosPedidos = {   DataOffLine.DatosTablaRepeticion.COLUMNA_id,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_idEjercicio,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_peso,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_repeticiones,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_tiempoDescanso,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_tiempoEjercicio,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_uMedida,
+                                    DataOffLine.DatosTablaRepeticion.COLUMNA_estado};
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaRepeticion.NOMBRE_TABLA,
+                    datosPedidos,
+                    null,null, null, null, null);
+            while (c.moveToNext()){
+                Repeticion r = new Repeticion(  Integer.parseInt(c.getString(0)),
+                                                Integer.parseInt(c.getString(1)),
+                                                Integer.parseInt(c.getString(2)),
+                                                Integer.parseInt(c.getString(3)),
+                                                Integer.parseInt(c.getString(4)),
+                                                Integer.parseInt(c.getString(5)),
+                                                Integer.parseInt(c.getString(6)));
+                repeticiones.add(r);
+            }
+            return repeticiones;
+        }catch (Exception e){
+            repeticiones =null;
+            return repeticiones;
+        }
+    }
+    public int proximaRepeticion(){
+        ArrayList<Repeticion> repeticiones = this.allRepeticion();
+        if(repeticiones.size()==0){
+            return 1;
+        }
+        else {
+            int id=0;
+            for (Repeticion r: repeticiones) {
+                if (r.idRepeticion>id){
+                    id=r.idRepeticion;
+                }
+            }
+            return (id+1);
+        }
     }
 }

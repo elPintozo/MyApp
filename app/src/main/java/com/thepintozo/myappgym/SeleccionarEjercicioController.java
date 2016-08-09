@@ -28,7 +28,6 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     private Button btnVolver;
     private int idMusculo;
     private int idRutina;
-    private int idRepeticion;
     private ListView listaSeleccionarEjercicio;
 
     @Override
@@ -41,7 +40,7 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         Bundle recibir = i.getExtras();
         if(recibir!=null){
             String o = recibir.getString("idMusculo");
-            idRepeticion = recibir.getInt("idRepeticion");
+            idRutina = recibir.getInt("idRutina");
             idMusculo =  Integer.parseInt(o);
         }
         else{

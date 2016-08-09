@@ -55,6 +55,20 @@
                     android:text="New Text"
                     android:id="@+id/txtTestRutina"
                     style="@style/styleSubTittle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/txtTestRepeticion"
+                    style="@style/styleSubTittle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/txtTestRutinaRepeticiones"
+                    style="@style/styleSubTittle" />
             </LinearLayout>
         </ScrollView>
 

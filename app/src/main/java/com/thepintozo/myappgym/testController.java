@@ -12,9 +12,12 @@ import java.util.ArrayList;
 
 import Model.Ejercicio;
 import Model.Musculo;
+import Model.Repeticion;
 import Model.Rutina;
+import Model.RutinaRepeticion;
 import Resource.InfoEjerciciosSinConexion;
 import Resource.InfoMusculoSinConexion;
+import Resource.InfoRepeticionSinConexion;
 import Resource.InfoRutinaSinConexion;
 import Resource.Informacion;
 
@@ -24,16 +27,20 @@ public class testController extends AppCompatActivity {
     private TextView testMusculo;
     private TextView testEjercicio;
     private TextView testRutina;
+    private TextView testRepeticion;
+    private TextView testRutinaRepeticion;
 
     private Informacion info ;
     public InfoMusculoSinConexion infoMusculo;
     public InfoEjerciciosSinConexion infoEjericio;
     public InfoRutinaSinConexion infoRutina;
+    public InfoRepeticionSinConexion infoRepeticion;
 
     public testController() {
         infoMusculo = new InfoMusculoSinConexion(this);
         infoEjericio = new InfoEjerciciosSinConexion(this);
         infoRutina = new InfoRutinaSinConexion(this);
+        infoRepeticion = new InfoRepeticionSinConexion(this);
     }
 
     @Override
@@ -50,7 +57,8 @@ public class testController extends AppCompatActivity {
         testMusculo = (TextView)findViewById(R.id.txtTestMusculo);
         testEjercicio = (TextView)findViewById(R.id.txtTestEjercicio);
         testRutina = (TextView)findViewById(R.id.txtTestRutina);
-
+        testRepeticion  = (TextView)findViewById(R.id.txtTestRepeticion);
+        testRutinaRepeticion  = (TextView)findViewById(R.id.txtTestRutinaRepeticiones);
         /******************************************************************************************/
         //asignacion Onclick a los botones
         /***************************
@@ -111,10 +119,44 @@ public class testController extends AppCompatActivity {
         else {
             txtRutina = txtRutina +"- No hay registros -";
         }
+        /******************************************************************************************/
+        // REPETICIONES
+        /******************************************************************************************/
+        String txtRepeticion ="Resultados de la tabla Repeticion: \n";
+        ArrayList<Repeticion> repeticiones = infoRepeticion.allRepeticion();
+
+        if (repeticiones.size()!=0){
+            txtRepeticion = txtRepeticion+" [Hay "+repeticiones.size()+" en la bd]\n";
+
+            for (Repeticion r: repeticiones) {
+                txtRepeticion = txtRepeticion+"    [id: "+r.idRepeticion+"]"+r.peso+"|"+r.repeticiones+"|"+r.tiempoDescanso+"|"+r.tiempoEjercicio+"\n";
+            }
+        }
+        else {
+            txtRepeticion = txtRepeticion +"- No hay registros -";
+        }
+        /******************************************************************************************/
+        // RUTINAREPETICIONES
+        /******************************************************************************************/
+        String txtRutinaRepeticion ="Resultados de la tabla RutinaRepeticion: \n";
+        ArrayList<RutinaRepeticion> RutinaRepeticiones = infoRutina.allRutinaRepeticion();
+
+        if (RutinaRepeticiones.size()!=0){
+            txtRutinaRepeticion = txtRutinaRepeticion+" [Hay "+RutinaRepeticiones.size()+" en la bd]\n";
+
+            for (RutinaRepeticion rr: RutinaRepeticiones) {
+                txtRutinaRepeticion = txtRutinaRepeticion+"    [id rutina: "+rr.idRutina+"][id repeticion:"+rr.idRepeticion+"]\n";
+            }
+        }
+        else {
+            txtRutinaRepeticion = txtRutinaRepeticion +"- No hay registros -";
+        }
 
 
         testMusculo.setText(txtMusculo);
         testEjercicio.setText(txtMEjercicio);
         testRutina.setText(txtRutina);
+        testRepeticion.setText(txtRepeticion);
+        testRutinaRepeticion.setText(txtRutinaRepeticion);
     }
 }

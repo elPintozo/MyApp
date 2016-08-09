@@ -79,6 +79,7 @@ public class InfoRutinaSinConexion {
     }
 
     public RutinaRepeticion buscarRutinaRepeticion(int idRutina){
+
         RutinaRepeticion rr;
         SQLiteDatabase bd = data.getReadableDatabase();
 
@@ -91,7 +92,8 @@ public class InfoRutinaSinConexion {
             // realizo la consulta
             Cursor c = bd.query( DataOffLine.DatosTablaRutinaRepeticion.NOMBRE_TABLA,
                     datosPedidos,
-                    null,null, null, null, null);
+                    DataOffLine.DatosTablaRutinaRepeticion.COLUMNA_idRutina+"=?",
+                    where, null, null, null);
             while (c.moveToNext()){
                 rr = new RutinaRepeticion(Integer.parseInt(c.getString(0)),Integer.parseInt(c.getString(1)));
                 return rr;
@@ -101,6 +103,26 @@ public class InfoRutinaSinConexion {
             return rr;
         }
         return null;
+    }
+    public ArrayList<RutinaRepeticion> allRutinaRepeticion(){
+        ArrayList<RutinaRepeticion> rutinaRepeticioness = new ArrayList<>();
+        SQLiteDatabase bd = data.getReadableDatabase();
+        String[] datosPedidos = {DataOffLine.DatosTablaRutinaRepeticion.COLUMNA_idRutina,
+                DataOffLine.DatosTablaRutinaRepeticion.COLUMNA_idRepeticion};
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaRutinaRepeticion.NOMBRE_TABLA,
+                    datosPedidos,
+                    null,null, null, null, null);
+            while (c.moveToNext()){
+                RutinaRepeticion rr = new RutinaRepeticion(Integer.parseInt(c.getString(0)),Integer.parseInt(c.getString(1)));
+                rutinaRepeticioness.add(rr);
+            }
+            return rutinaRepeticioness;
+        }catch (Exception e){
+            rutinaRepeticioness = null;
+            return  rutinaRepeticioness;
+        }
     }
     public ArrayList<Rutina> allRitunas(){
         ArrayList<Rutina> rutinas = new ArrayList<>();
