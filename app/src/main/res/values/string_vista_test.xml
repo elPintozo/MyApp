@@ -2,4 +2,6 @@
 <resources>
     <string name="tittleTest">Test de datos Off-Line</string>
     <string name="btnRetournTest">Volver</string>
+    <string name="btnLimpiarBD">Limpiar Tablas BD</string>
+    <string name="btnResetearBD">Eliminar Tablas BD</string>
 </resources>

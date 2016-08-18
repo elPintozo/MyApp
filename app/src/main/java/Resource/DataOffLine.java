@@ -106,11 +106,10 @@ public class DataOffLine extends SQLiteOpenHelper{
         public static final String COLUMNA_idRutina     = "idRutina";
         public static final String COLUMNA_idRepeticion = "idRepeticion";
         public static final String SQL_CREATE_TABlE     = "CREATE TABLE "+DatosTablaRutinaRepeticion.NOMBRE_TABLA +" ("+
-                DatosTablaRutinaRepeticion.COLUMNA_idRutina       + " INTEGER PRIMARY KEY, "+
+                DatosTablaRutinaRepeticion.COLUMNA_idRutina       + " INTEGER, "+
                 DatosTablaRutinaRepeticion.COLUMNA_idRepeticion   + " INTEGER, "+
                 "FOREIGN KEY ("+DatosTablaRutinaRepeticion.COLUMNA_idRutina +")     REFERENCES Rutina(idRutina), "+
                 "FOREIGN KEY ("+DatosTablaRutinaRepeticion.COLUMNA_idRepeticion +") REFERENCES Repeticion(idRepeticion)" +") ";
         public static final String SQL_DELETE_TABLE = "DROP TABLE IF EXISTS  "+DatosTablaRutinaRepeticion.NOMBRE_TABLA;
     }
-
 }

@@ -69,6 +69,24 @@
                     android:text="New Text"
                     android:id="@+id/txtTestRutinaRepeticiones"
                     style="@style/styleSubTittle" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnLimpiarBD"
+                    android:id="@+id/btnClearDBTest"
+                    style="@style/styleTextButtom"
+                    android:background="@color/colorDivider"
+                    android:layout_margin="5dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnResetearBD"
+                    android:id="@+id/btnDeleteDBTest"
+                    style="@style/styleTextButtom"
+                    android:background="@color/colorDivider"
+                    android:layout_margin="5dp" />
             </LinearLayout>
         </ScrollView>
 

@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import Model.CapsulaEjercicio;
+import Resource.Informacion;
+
 
 public class MiRutinaController extends AppCompatActivity {
 
@@ -16,11 +21,12 @@ public class MiRutinaController extends AppCompatActivity {
     private int idRutina;
     private Extra extra;
     private ListView listaEjerciciosRealizados;
-
+    private Informacion info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_rutina_controller);
+        info = new Informacion(this);
         /******************************************************************************************/
         //recibo info de la seleccion anterior
         Intent i = getIntent();
@@ -29,8 +35,6 @@ public class MiRutinaController extends AppCompatActivity {
             idRutina = recibir.getInt("idRutina");
         }
         else{
-            //Toast toast = Toast.makeText(this, "no aporta nada", Toast.LENGTH_LONG);
-            //toast.show();
             idRutina = 1;
         }
         /******************************************************************************************/
@@ -72,8 +76,22 @@ public class MiRutinaController extends AppCompatActivity {
     }
 
     private void cargarList() {
-        String[] Ejercicios = {"Ejercicio 1", "Ejercicio 2", "Ejercicio 3"};
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
+        ArrayAdapter<String> adaptador;
+        ArrayList<String> Ejercicios =  new ArrayList<>();
+        Ejercicios.add("No has realizado ningun ejericio aún");
+        String fecha = extra.getFechaCompleta(1);
+        ArrayList<CapsulaEjercicio> ultimos = info.EjerciciosRutinaActual(getApplicationContext(),fecha);
+
+        if(ultimos.size()!=0){
+            ArrayList<String> salida = new ArrayList<>();
+            for (CapsulaEjercicio c:ultimos) {
+                salida.add(c.nombreEjercicio+" -> Ejercicios realizados: "+c.numeroRepeticiones);
+            }
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, salida);
+        }
+        else {
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
+        }
         listaEjerciciosRealizados.setAdapter(adaptador);
     }
 }

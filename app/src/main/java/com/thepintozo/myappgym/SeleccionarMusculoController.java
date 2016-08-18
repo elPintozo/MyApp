@@ -52,7 +52,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
                 finish();
                 Intent i2 = new Intent(SeleccionarMusculoController.this, SeleccionarEjercicioController.class);
                 i2.putExtra("idRutina", idRutina);
-                i2.putExtra("idMusculo", Integer.toString(i+1));
+                i2.putExtra("idMusculo", i+1);
                 startActivity(i2);
                 //--
             }

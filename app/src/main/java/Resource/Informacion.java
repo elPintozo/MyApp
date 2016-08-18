@@ -1,11 +1,18 @@
 package Resource;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Paint;
+
+import com.thepintozo.myappgym.Extra;
 
 import java.util.ArrayList;
 
+import Model.CapsulaEjercicio;
 import Model.Ejercicio;
 import Model.Musculo;
+import Model.Rutina;
 
 /**
  * Created by ricar on 18/07/2016.
@@ -14,10 +21,15 @@ public class Informacion {
 
     public InfoMusculoSinConexion infoMusculo;
     public InfoEjerciciosSinConexion infoEjericio;
-
+    public InfoRutinaSinConexion infoRutina;
+    private DataOffLine data;
+    private Extra extra;
     public Informacion(Context context) {
         infoMusculo = new InfoMusculoSinConexion(context);
         infoEjericio = new InfoEjerciciosSinConexion(context);
+        infoRutina = new InfoRutinaSinConexion(context);
+        data = new DataOffLine(context);
+        extra = new Extra();
     }
     public  void cargarInfo(Context context){
 
@@ -146,5 +158,69 @@ public class Informacion {
         return ejercicios;
     }
 
+    public ArrayList<String> ultimosEjercicios(Context context,String fecha){
+        ArrayList<String> salida = new ArrayList<>();
+        fecha = diaAnterior(fecha);
+        extra.Mensaje(context,fecha);
+        SQLiteDatabase db = data.getWritableDatabase();
+        Cursor fila = db.rawQuery("select distinct (m."+DataOffLine.DatosTablaMusculo.COLUMNA_nombre+") "+
+                                  "from "+DataOffLine.DatosTablaRutina.NOMBRE_TABLA+" r "+
+                                  "inner join "+DataOffLine.DatosTablaRutinaRepeticion.NOMBRE_TABLA+" rp on rp.idRutina = r.idRutina " +
+                                  "inner join "+DataOffLine.DatosTablaRepeticion.NOMBRE_TABLA+" re on re.idRepeticion = rp.idRepeticion " +
+                                  "inner join "+DataOffLine.DatosTablaEjercicio.NOMBRE_TABLA+" e on e.idEjercicio = re.idEjercicio " +
+                                  "inner join "+DataOffLine.DatosTablaMusculo.NOMBRE_TABLA+" m on e.idMusculo = m.idMusculo " +
+                                  "where r."+DataOffLine.DatosTablaRutina.COLUMNA_fecha+" = '"+fecha+"'", null);
+        //------------------------------------------------------------------------------------------
+        if(fila.moveToFirst()){
+            do {
+                salida.add(fila.getString(0));
+            }while (fila.moveToNext());
+        }
+        //------------------------------------------------------------------------------------------
+        db.close();
+        return salida;
+    }
 
+    private String diaAnterior(String fecha) {
+        Rutina r = infoRutina.buscarRutina(fecha);
+        if(r!=null){
+            Rutina rr = infoRutina.buscarRutinaId(r.idRutina-1);
+            if(rr!=null){
+                return rr.fecha;
+            }
+        }
+        else{
+            Rutina rrr = infoRutina.buscarUltimaRutina();
+            if(rrr!=null){
+                return  rrr.fecha;
+            }
+            else {
+                return fecha;
+            }
+        }
+        return fecha;
+    }
+
+    public ArrayList<CapsulaEjercicio> EjerciciosRutinaActual(Context context,String fecha){
+        ArrayList<CapsulaEjercicio> resumen = new ArrayList<>();
+        SQLiteDatabase db = data.getWritableDatabase();
+        Cursor fila = db.rawQuery("select m.nombreMusculo as 'Musculo', count(*) as 'Ejercicios realizados' " +
+                "from rutina r " +
+                "inner join RutinaRepeticion rp on rp.idRutina = r.idRutina " +
+                "inner join Repeticion re on re.idRepeticion = rp.idRepeticion " +
+                "inner join Ejercicio e on e.idEjercicio = re.idEjercicio " +
+                "inner join Musculo m on e.idMusculo = m.idMusculo " +
+                "where r.fecha ='"+fecha+"' " +
+                "group by m.nombreMusculo", null);
+        //------------------------------------------------------------------------------------------
+        if(fila.moveToFirst()){
+            do {
+                CapsulaEjercicio c = new CapsulaEjercicio(fila.getString(0),Integer.parseInt(fila.getString(1)));
+                resumen.add(c);
+            }while (fila.moveToNext());
+        }
+        //------------------------------------------------------------------------------------------
+        db.close();
+        return resumen;
+    }
 }

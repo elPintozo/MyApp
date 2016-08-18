@@ -37,14 +37,15 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     private int idEjercicio;
     private int idRutina;
     private int Umedida=1;
+    private int repeticionesInicial;
     private int tiempoEjercicioInicial;
     private int tiempoDescansoInicial;
-    private int repeticionesInicial;
     private int repeticionesFinal;
     private ArrayList<Serie> series;
 
     private InfoRepeticionSinConexion infoRepeticion;
     private InfoRutinaSinConexion infoRutina;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,6 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         /******************************************************************************************/
         //Inicializo lista correspondientes a la vista
         listRepeticiones = (ListView)findViewById(R.id.listRepeticiones);
-        actualizarSeries();
 
         /******************************************************************************************/
 
@@ -98,12 +98,15 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         btnDescanzarEjercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
+
+            if(tiempoEjercicioInicial!=0){
                 tiempoDescanso.setBase(SystemClock.elapsedRealtime());
                 tiempoDescanso.start();
                 tiempoEjericio.stop();
-                tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
-
                 tiempoEjericio.setBase(SystemClock.elapsedRealtime());
+                ayuda.Mensaje(getApplicationContext(),"Tómate un respiro!");
+            }
             }
         });
         /***************************
@@ -113,17 +116,24 @@ public class ComenzarEjercicioController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
-                repeticionesInicial = Integer.parseInt(txtseries.getText().toString());
-                repeticionesFinal = repeticionesFinal + repeticionesInicial;
-
-                if(ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()))!=0){
-                    sumarSerie();
+                if(tiempoDescansoInicial!=0 ){
                     actualizarSeries();
                 }
-                tiempoEjericio.setBase(SystemClock.elapsedRealtime());
-                tiempoEjericio.start();
-                tiempoDescanso.stop();
-                tiempoDescanso.setBase(SystemClock.elapsedRealtime());
+                if(!txtseries.getText().toString().equals("")){
+                    tiempoEjericio.setBase(SystemClock.elapsedRealtime());
+                    tiempoEjericio.start();
+                    tiempoDescanso.stop();
+                    tiempoDescanso.setBase(SystemClock.elapsedRealtime());
+                    ayuda.Mensaje(getApplicationContext(),"Adelante!");
+                }
+                else {
+                    if(txtpeso.getText().toString().equals("")){
+                        ayuda.Mensaje(getApplicationContext(),"Debes ingresar el Peso que levantaras");
+                    }
+                    if(txtseries.getText().toString().equals("")){
+                        ayuda.Mensaje(getApplicationContext(),"Debes ingresar la cantidad de veces que lo harás");
+                    }
+                }
             }
         });
         /***************************
@@ -148,17 +158,27 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         btnTermineEjericio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
-                nuevaRepeticion();
+                tiempoDescansoInicial = ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
 
-                finish();
-                Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
-                i.putExtra("idRutina",idRutina);
-                startActivity(i);
+                if(tiempoEjercicioInicial==0 && tiempoDescansoInicial==0){
+                    ayuda.Mensaje(getApplicationContext(),"Debes precionar el botón Comenzar \n" +
+                                                          "para comenzar la serie.");
+                }
+                else {
+                    if(tiempoEjercicioInicial!=0){}
+                    if(tiempoDescansoInicial!=0){
+                        actualizarSeries();
+                    }
+                    finish();
+                    Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
+                    i.putExtra("idRutina",idRutina);
+                    startActivity(i);
+                }
             }
         });
     }
     private void actualizarSeries() {
+        nuevaRepeticion();
         ArrayList<String> seriess = new ArrayList<>();
         if(series.size()!=0){
             for (Serie s: series ) {
@@ -168,31 +188,21 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         else{
             seriess.add("Vamos con todo.");
         }
-
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, seriess);
         listRepeticiones.setAdapter(adaptador);
     }
 
-    public void sumarSerie(){
-        Serie s  = new Serie(series.size(),Integer.parseInt(txtpeso.getText().toString()),repeticionesInicial,tiempoDescansoInicial,tiempoEjercicioInicial);
-        series.add(s);
-    }
     public void nuevaRepeticion(){
-        int descansoTotal=0;
-        int ejercicioTotal=0;
-        int totalSeries=0;
 
-        if(series.size()!=0){
-            int id = infoRepeticion.proximaRepeticion();
-            int peso = Integer.parseInt(txtpeso.getText().toString());
-            for (Serie s: series) {
-                descansoTotal = descansoTotal+s.tDescanso;
-                ejercicioTotal = ejercicioTotal+s.tEjercicio;
-                totalSeries = totalSeries+s.veces;
-            }
-            infoRepeticion.cargarDatosDeRepeticion(id,idEjercicio,peso,totalSeries,descansoTotal,ejercicioTotal,Umedida);
-            infoRutina.cargarDatosDeRutinaRepeticion(idRutina,id);
-        }
+        int id = infoRepeticion.proximaRepeticion();
+        int peso = Integer.parseInt(txtpeso.getText().toString());
+        int s = Integer.parseInt(txtseries.getText().toString());
+
+        infoRepeticion.cargarDatosDeRepeticion(id,idEjercicio,peso,s,tiempoDescansoInicial,tiempoEjercicioInicial,Umedida);
+        infoRutina.cargarDatosDeRutinaRepeticion(idRutina,id);
+
+        Serie serie = new Serie(id,peso,s,tiempoDescansoInicial,tiempoDescansoInicial);
+        series.add(serie);
     }
 }
 

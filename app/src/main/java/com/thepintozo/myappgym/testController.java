@@ -1,6 +1,7 @@
 package com.thepintozo.myappgym;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import Model.Musculo;
 import Model.Repeticion;
 import Model.Rutina;
 import Model.RutinaRepeticion;
+import Resource.DataOffLine;
 import Resource.InfoEjerciciosSinConexion;
 import Resource.InfoMusculoSinConexion;
 import Resource.InfoRepeticionSinConexion;
@@ -24,12 +26,14 @@ import Resource.Informacion;
 public class testController extends AppCompatActivity {
 
     private Button btnVolver;
+    private Button btnLimpiarBD;
+    private Button btnResetearBD;
     private TextView testMusculo;
     private TextView testEjercicio;
     private TextView testRutina;
     private TextView testRepeticion;
     private TextView testRutinaRepeticion;
-
+    private DataOffLine data;
     private Informacion info ;
     public InfoMusculoSinConexion infoMusculo;
     public InfoEjerciciosSinConexion infoEjericio;
@@ -41,6 +45,7 @@ public class testController extends AppCompatActivity {
         infoEjericio = new InfoEjerciciosSinConexion(this);
         infoRutina = new InfoRutinaSinConexion(this);
         infoRepeticion = new InfoRepeticionSinConexion(this);
+        data = new DataOffLine(this);
     }
 
     @Override
@@ -51,6 +56,8 @@ public class testController extends AppCompatActivity {
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnVolver =(Button)findViewById(R.id.btnVolverTest);
+        btnLimpiarBD=(Button)findViewById(R.id.btnClearDBTest);
+        btnResetearBD=(Button)findViewById(R.id.btnDeleteDBTest);
 
         /******************************************************************************************/
         //Inicializo el titulo de la vista
@@ -70,6 +77,24 @@ public class testController extends AppCompatActivity {
                 finish();
                 Intent i = new Intent(testController.this, MainActivity.class);
                 startActivity(i);
+            }
+        });
+        /***************************
+         BOTON LIMPIAR
+         ***************************/
+        btnLimpiarBD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SQLiteDatabase db = data.getWritableDatabase();
+            }
+        });
+        /***************************
+         BOTON RESETEAR
+         ***************************/
+        btnResetearBD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SQLiteDatabase db = data.getWritableDatabase();
             }
         });
         /******************************************************************************************/
@@ -129,7 +154,7 @@ public class testController extends AppCompatActivity {
             txtRepeticion = txtRepeticion+" [Hay "+repeticiones.size()+" en la bd]\n";
 
             for (Repeticion r: repeticiones) {
-                txtRepeticion = txtRepeticion+"    [id: "+r.idRepeticion+"]"+r.peso+"|"+r.repeticiones+"|"+r.tiempoDescanso+"|"+r.tiempoEjercicio+"\n";
+                txtRepeticion = txtRepeticion+"    [id: "+r.idRepeticion+"]("+r.idEjercicio+")"+r.peso+"|"+r.repeticiones+"|"+r.tiempoDescanso+"|"+r.tiempoEjercicio+"\n";
             }
         }
         else {

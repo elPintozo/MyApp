@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.thepintozo.myappgym.Extra;
+
 import java.util.ArrayList;
 
 import Model.Rutina;
@@ -15,9 +17,10 @@ import Model.RutinaRepeticion;
  */
 public class InfoRutinaSinConexion {
     public DataOffLine data;
-
+    private Extra extra;
     public InfoRutinaSinConexion(Context context) {
         data = new DataOffLine(context);
+        extra =  new Extra();
     }
     /**
      * Funcion encarga de registrar una repeticion
@@ -52,15 +55,40 @@ public class InfoRutinaSinConexion {
         //si retorna un -1 es porque el registro ya existe
     }
 
-    public Rutina buscarRutina(int fecha){
+    public Rutina buscarRutinaId(int id){
         Rutina r;
         SQLiteDatabase bd = data.getReadableDatabase();
         //la fecha de la rutina que busco
-        String[] where ={Integer.toString(fecha)};
+        String[] where ={Integer.toString(id)};
 
         String[] datosPedidos = {DataOffLine.DatosTablaRutina.COLUMNA_id,
                                  DataOffLine.DatosTablaRutina.COLUMNA_fecha,
                                  DataOffLine.DatosTablaRutina.COLUMNA_estado};
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaRutina.NOMBRE_TABLA,
+                    datosPedidos,
+                    DataOffLine.DatosTablaRutina.COLUMNA_id+"=?",
+                    where, null, null, null);
+            while (c.moveToNext()){
+                r = new Rutina(Integer.parseInt(c.getString(0)),c.getString(1),Integer.parseInt(c.getString(2)));
+                return r;
+            }
+        }catch (Exception e){
+            r = null;
+            return r;
+        }
+        return null;
+    }
+    public Rutina buscarRutina(String fecha){
+        Rutina r;
+        SQLiteDatabase bd = data.getReadableDatabase();
+        //la fecha de la rutina que busco
+        String[] where ={fecha};
+
+        String[] datosPedidos = {DataOffLine.DatosTablaRutina.COLUMNA_id,
+                DataOffLine.DatosTablaRutina.COLUMNA_fecha,
+                DataOffLine.DatosTablaRutina.COLUMNA_estado};
         try {
             // realizo la consulta
             Cursor c = bd.query( DataOffLine.DatosTablaRutina.NOMBRE_TABLA,
@@ -146,10 +174,35 @@ public class InfoRutinaSinConexion {
         }
         return rutinas;
     }
+    public Rutina buscarUltimaRutina(){
+        ArrayList<Rutina> rutinas = new ArrayList<>();
+
+        SQLiteDatabase bd = data.getReadableDatabase();
+        String[] datosPedidos = {DataOffLine.DatosTablaRutina.COLUMNA_id,
+                DataOffLine.DatosTablaRutina.COLUMNA_fecha,
+                DataOffLine.DatosTablaRutina.COLUMNA_estado};
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaRutina.NOMBRE_TABLA,
+                    datosPedidos,
+                    null, null, null, null, null);
+            while (c.moveToNext()){
+                Rutina r = new Rutina(Integer.parseInt(c.getString(0)),c.getString(1),Integer.parseInt(c.getString(2)));
+                rutinas.add(r);
+            }
+            return rutinas.get(rutinas.size()-1);
+        }catch (Exception e){
+            return null;
+        }
+    }
 
     public int idProximaRutina(){
         ArrayList<Rutina> rutinas = this.allRitunas();
+        String fechaa = extra.getFechaCompleta(1);
+        Rutina ultimaRutina = null;
+
         if(rutinas.size()==0){
+            this.cargarDatosDeRutina(1,fechaa);
             return 1;
         }
         else {
@@ -157,9 +210,16 @@ public class InfoRutinaSinConexion {
             for (Rutina r: rutinas) {
                 if (r.idRutina>id){
                     id=r.idRutina;
+                    ultimaRutina = r;
                 }
             }
-            return (id+1);
+
+            if(ultimaRutina.fecha.equals(fechaa)){
+                return id;
+            }else {
+                this.cargarDatosDeRutina(id+1,fechaa);
+                return (id + 1);
+            }
         }
     }
 }

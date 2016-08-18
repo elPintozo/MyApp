@@ -29,6 +29,7 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     private int idMusculo;
     private int idRutina;
     private ListView listaSeleccionarEjercicio;
+    private ArrayList<Ejercicio> ejercicios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,8 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
         if(recibir!=null){
-            String o = recibir.getString("idMusculo");
             idRutina = recibir.getInt("idRutina");
-            idMusculo =  Integer.parseInt(o);
+            idMusculo =  recibir.getInt("idMusculo");
         }
         else{
             idMusculo = 1;
@@ -62,7 +62,7 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
                 finish();
                 Intent i2 = new Intent(SeleccionarEjercicioController.this, ComenzarEjercicioController.class);
                 i2.putExtra("idMusculo",idMusculo);
-                i2.putExtra("idEjercicio",i+1);
+                i2.putExtra("idEjercicio",ejercicios.get(i+1).idEjercicio);//<-----
                 i2.putExtra("idRutina",idRutina);
                 startActivity(i2);
             }
@@ -95,7 +95,7 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "Id: "+salida, Toast.LENGTH_LONG);
         toast.show();*/
         //------------------------------------------------------------------------------------------
-        ArrayList<Ejercicio> ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
+        ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
         ArrayList<String> listaEjerciciosOffLine = new ArrayList<>();
 
 
