@@ -3,4 +3,5 @@
     <string name="btnExit">Terminé</string>
     <string name="btnStart">Comenzar</string>
     <string name="lblProfile">User</string>
+    <string name="lblVersion">V1.0</string>
 </resources>

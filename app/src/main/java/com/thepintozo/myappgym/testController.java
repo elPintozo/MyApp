@@ -40,6 +40,8 @@ public class testController extends AppCompatActivity {
     public InfoRutinaSinConexion infoRutina;
     public InfoRepeticionSinConexion infoRepeticion;
 
+
+
     public testController() {
         infoMusculo = new InfoMusculoSinConexion(this);
         infoEjericio = new InfoEjerciciosSinConexion(this);
@@ -86,6 +88,9 @@ public class testController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = data.getWritableDatabase();
+                db.execSQL("delete from "+DataOffLine.DatosTablaRepeticion.NOMBRE_TABLA);
+                db.execSQL("delete from "+DataOffLine.DatosTablaRutina.NOMBRE_TABLA);
+                db.execSQL("delete from "+DataOffLine.DatosTablaRutinaRepeticion.NOMBRE_TABLA);
             }
         });
         /***************************

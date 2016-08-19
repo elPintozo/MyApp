@@ -161,7 +161,7 @@ public class Informacion {
     public ArrayList<String> ultimosEjercicios(Context context,String fecha){
         ArrayList<String> salida = new ArrayList<>();
         fecha = diaAnterior(fecha);
-        extra.Mensaje(context,fecha);
+        //extra.Mensaje(context,fecha);
         SQLiteDatabase db = data.getWritableDatabase();
         Cursor fila = db.rawQuery("select distinct (m."+DataOffLine.DatosTablaMusculo.COLUMNA_nombre+") "+
                                   "from "+DataOffLine.DatosTablaRutina.NOMBRE_TABLA+" r "+

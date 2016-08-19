@@ -201,7 +201,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         infoRepeticion.cargarDatosDeRepeticion(id,idEjercicio,peso,s,tiempoDescansoInicial,tiempoEjercicioInicial,Umedida);
         infoRutina.cargarDatosDeRutinaRepeticion(idRutina,id);
 
-        Serie serie = new Serie(id,peso,s,tiempoDescansoInicial,tiempoDescansoInicial);
+        Serie serie = new Serie(id,peso,s,tiempoDescansoInicial,tiempoEjercicioInicial);
         series.add(serie);
     }
 }
