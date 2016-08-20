@@ -20,6 +20,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
     private Button btnVolver;
     private int idRutina;
     private ListView listaSeleccionarMusculo;
+    private ArrayList<Musculo> musculos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
                 finish();
                 Intent i2 = new Intent(SeleccionarMusculoController.this, SeleccionarEjercicioController.class);
                 i2.putExtra("idRutina", idRutina);
-                i2.putExtra("idMusculo", i+1);
+                i2.putExtra("idMusculo", musculos.get(i).idMusculo);
                 startActivity(i2);
                 //--
             }
@@ -76,7 +77,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
 
         ArrayAdapter<String> adaptador;
         InfoMusculoSinConexion inf = new InfoMusculoSinConexion(this);
-        ArrayList<Musculo> musculos = inf.obtenerMusculos();
+        musculos = inf.obtenerMusculos();
 
         if(musculos!=null){
             String[] Ejercicios = {"Hay info"};
