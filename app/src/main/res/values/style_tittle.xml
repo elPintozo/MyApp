@@ -6,4 +6,10 @@
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="styleTittleAdapter">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

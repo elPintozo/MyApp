@@ -1,10 +1,12 @@
 package com.thepintozo.myappgym;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import Resource.DataOffLine;
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView titulo;
     private int contador=0;
 
+    private ImageView imagenPerfil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +30,13 @@ public class MainActivity extends AppCompatActivity {
         data.cargarInfo(this);
 
         /******************************************************************************************/
+        //Inicializo la imagen de perfil
+        imagenPerfil = (ImageView) findViewById(R.id.profileImage);
+        imagenPerfil.setImageResource(R.mipmap.male_profile);
+        /******************************************************************************************/
         //Inicializo el titulo de la vista
         titulo = (TextView)findViewById(R.id.lblProfileName);
-
+        titulo.setText("Ricardo");
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
 

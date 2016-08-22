@@ -31,7 +31,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="3">
 
             <ListView
                 android:layout_width="wrap_content"
@@ -47,7 +47,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4">
+            android:layout_weight="4"
+            android:baselineAligned="false">
 
             <TextView
                 android:layout_width="0dp"
@@ -57,27 +58,13 @@
                 android:layout_weight="1"
                 style="@style/styleSubTittle" />
 
-            <!--<EditText
+            <Spinner
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/txtPeso"
+                android:id="@+id/spinnerPeso"
                 android:layout_weight="1"
-                android:background="@color/colorIcons"
-                android:textColor="@color/colorPrimary"
-                android:layout_margin="5dp" />-->
-
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/txtpeso"
-                android:layout_weight="1"
-                android:numeric="integer"
-                android:textIsSelectable="false"
-                android:textSize="18dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center" />
+                android:gravity="center"
+                android:scrollIndicators="none" />
 
             <Button
                 android:layout_width="0dp"
@@ -92,7 +79,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4" >
+            android:layout_weight="4"
+            android:baselineAligned="false">
 
             <TextView
                 style="@style/styleSubTittle"
@@ -102,25 +90,22 @@
                 android:id="@+id/textView4"
                 android:layout_weight="1" />
 
-            <EditText
+            <Spinner
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/txtRepeticiones"
+                android:layout_height="match_parent"
+                android:id="@+id/spinnerSeries"
                 android:layout_weight="1"
-                android:numeric="integer"
-                android:textIsSelectable="false"
-                android:textSize="18dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center" />
+                android:textAlignment="center"
+                android:gravity="center"
+                android:scrollIndicators="none" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4">
+            android:layout_weight="4"
+            android:baselineAligned="false">
 
             <Chronometer
                 android:layout_width="match_parent"
@@ -129,7 +114,8 @@
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                style="@style/styleTextButtom" />
 
             <Chronometer
                 android:layout_width="match_parent"
@@ -138,7 +124,8 @@
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                style="@style/styleTextButtom" />
 
         </LinearLayout>
 
@@ -167,7 +154,9 @@
                 android:background="@color/colorSecondaryText"
                 android:layout_margin="5dp"
                 android:focusable="true" />
+
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
