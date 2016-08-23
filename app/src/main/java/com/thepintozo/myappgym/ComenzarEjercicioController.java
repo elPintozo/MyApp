@@ -157,21 +157,13 @@ public class ComenzarEjercicioController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tiempoDescansoInicial = ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
-
-                if(tiempoEjercicioInicial==0 && tiempoDescansoInicial==0){
-                    ayuda.Mensaje(getApplicationContext(),"Debes precionar el botón Comenzar \n" +
-                                                          "para comenzar la serie.");
+                if(tiempoDescansoInicial!=0){
+                    actualizarSeries();
                 }
-                else {
-                    if(tiempoEjercicioInicial!=0){}
-                    if(tiempoDescansoInicial!=0){
-                        actualizarSeries();
-                    }
-                    finish();
-                    Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
-                    i.putExtra("idRutina",idRutina);
-                    startActivity(i);
-                }
+                finish();
+                Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
+                i.putExtra("idRutina",idRutina);
+                startActivity(i);
             }
         });
         /******************************************************************************************/
