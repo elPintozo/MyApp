@@ -8,7 +8,7 @@ import android.widget.ImageView;
 public class Musculo {
     public int idMusculo;
     public String nombreMusculo;
-    public ImageView imagenMusculo;
+    public int imagenMusculo;
     public int Estado;
 
     public Musculo(int idMusculo, String nombreMusculo, int estado) {
@@ -16,4 +16,5 @@ public class Musculo {
         this.nombreMusculo = nombreMusculo;
         Estado = estado;
     }
+
 }

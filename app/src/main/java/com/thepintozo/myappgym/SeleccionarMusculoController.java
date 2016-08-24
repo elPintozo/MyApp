@@ -3,24 +3,31 @@ package com.thepintozo.myappgym;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Model.Musculo;
+import Model.RecyclerAdapterMusculo;
 import Resource.InfoMusculoSinConexion;
 
 public class SeleccionarMusculoController extends AppCompatActivity {
 
     private Button btnVolver;
     private int idRutina;
-    private ListView listaSeleccionarMusculo;
     private ArrayList<Musculo> musculos;
+
+    private RecyclerView recycler;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,28 +43,21 @@ public class SeleccionarMusculoController extends AppCompatActivity {
             idRutina = 0;
         }
         /******************************************************************************************/
+        //inicializo los cardview
+        /*----------------------------------------------------------------------------------------*/
+        recycler = (RecyclerView) findViewById(R.id.recyclerMusculo);
+        layoutManager = new GridLayoutManager(this,2, LinearLayoutManager.VERTICAL,false);
+        recycler.setLayoutManager(layoutManager);
+
+        InfoMusculoSinConexion inf = new InfoMusculoSinConexion(this);
+        musculos = inf.obtenerMusculos();
+        adapter = new RecyclerAdapterMusculo(musculos, idRutina, this);
+        recycler.setAdapter(adapter);
+        /*----------------------------------------------------------------------------------------*/
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnVolver = (Button)findViewById(R.id.btnVolverSeleccionarMusculo);
 
-        /******************************************************************************************/
-        //Inicializo lista correspondientes a la vista
-        listaSeleccionarMusculo = (ListView)findViewById(R.id.listSeleccionarMusculo);
-        cargarList();
-        /******************************************************************************************/
-        //asignacion OnItemClickL a la lista
-        listaSeleccionarMusculo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //--(i+1)
-                finish();
-                Intent i2 = new Intent(SeleccionarMusculoController.this, SeleccionarEjercicioController.class);
-                i2.putExtra("idRutina", idRutina);
-                i2.putExtra("idMusculo", musculos.get(i).idMusculo);
-                startActivity(i2);
-                //--
-            }
-        });
         /******************************************************************************************/
         //asignacion Onclick a los botones
         /***************************
@@ -90,6 +90,6 @@ public class SeleccionarMusculoController extends AppCompatActivity {
             String[] Ejercicios = {"Ejercicio 1", "Ejercicio 2", "Ejercicio 3"};
             adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
         }
-        listaSeleccionarMusculo.setAdapter(adaptador);
+        //listaSeleccionarMusculo.setAdapter(adaptador);
     }
 }

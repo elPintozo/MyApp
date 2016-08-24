@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 
 import Model.Ejercicio;
 import Model.Musculo;
+import Model.RecyclerAdapterEjercicio;
 import Resource.InfoEjerciciosSinConexion;
 import Resource.InfoMusculoSinConexion;
 
@@ -28,9 +32,11 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     private Button btnVolver;
     private int idMusculo;
     private int idRutina;
-    private ListView listaSeleccionarEjercicio;
     private ArrayList<Ejercicio> ejercicios;
 
+    private RecyclerView recycler;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +58,17 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         btnVolver = (Button) findViewById(R.id.btnVolverSeleccionarEjercicio);
 
         /******************************************************************************************/
+        recycler = (RecyclerView) findViewById(R.id.recyclerEjercicio);
+        layoutManager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(layoutManager);
+
+        InfoEjerciciosSinConexion info = new InfoEjerciciosSinConexion(this);
+        ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
+        adapter = new RecyclerAdapterEjercicio(ejercicios,this,idRutina,idMusculo);
+        recycler.setAdapter(adapter);
+
         //Inicializo lista correspondientes a la vista
-        listaSeleccionarEjercicio = (ListView) findViewById(R.id.listSeleccionarEjercicio);
+        /*listaSeleccionarEjercicio = (ListView) findViewById(R.id.listSeleccionarEjercicio);
         cargarList(this);
         listaSeleccionarEjercicio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,7 +81,7 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
                 i2.putExtra("idRutina",idRutina);
                 startActivity(i2);
             }
-        });
+        });*/
         /******************************************************************************************/
         //asignacion Onclick a los botones
         /***************************
@@ -108,6 +123,6 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
             String[] listaEjercicios = {"Ejercicio 1"};//, "Ejercicio 2", "Ejercicio 3"};
             adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEjercicios);
         }
-        listaSeleccionarEjercicio.setAdapter(adaptador);
+        //listaSeleccionarEjercicio.setAdapter(adaptador);
     }
 }
