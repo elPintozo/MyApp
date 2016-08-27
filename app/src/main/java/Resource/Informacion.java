@@ -100,12 +100,24 @@ public class Informacion {
 
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
         /*Bicep*/
-        Ejercicio a1 = new Ejercicio(1,1,"reverse wrist curl","detalle",1);
+        Ejercicio a1 = new Ejercicio(1,1,"Reverse wrist curl","detalle",1);
         ejercicios.add(a1);
-        Ejercicio a2 = new Ejercicio(2,1,"standing biceps curl","detalle",1);
+        Ejercicio a2 = new Ejercicio(2,1,"Standing biceps curl","detalle",1);
         ejercicios.add(a2);
-        Ejercicio a3 = new Ejercicio(3,1,"zottman curl","detalle",1);
+        Ejercicio a3 = new Ejercicio(3,1,"Zottman curl","detalle",1);
         ejercicios.add(a3);
+        Ejercicio a4 = new Ejercicio(4,1,"Barbell preacher url","detalle",1);
+        ejercicios.add(a4);
+        Ejercicio a5 = new Ejercicio(5,1,"Cable alternating bend","detalle",1);
+        ejercicios.add(a5);
+        Ejercicio a6 = new Ejercicio(6,1,"Dumbbell concentration curl","detalle",1);
+        ejercicios.add(a6);
+        Ejercicio a7 = new Ejercicio(7,1,"Cable curl","detalle",1);
+        ejercicios.add(a7);
+        Ejercicio a8 = new Ejercicio(8,1,"Dumbbell curl","detalle",1);
+        ejercicios.add(a8);
+        Ejercicio a9 = new Ejercicio(9,1,"Levantamiento de barra de pie","detalle",1);
+        ejercicios.add(a9);
 
         /*Tricep*/
         Ejercicio b1 = new Ejercicio(4,2,"extension vertical alternada de los brazos","detalle",1);

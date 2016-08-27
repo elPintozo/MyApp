@@ -38,7 +38,13 @@ public class RecyclerAdapterEjercicio extends  RecyclerView.Adapter<RecyclerAdap
         if(idMusculo==1){
             imagenes = new int[]{R.mipmap.reverse_wrist_curl,
                                  R.mipmap.standing_biceps_curl,
-                                 R.mipmap.zottman_curl};
+                                 R.mipmap.zottman_curl,
+                                 R.mipmap.barbell_preacher_curl,
+                                 R.mipmap.cable_alternating_bend,
+                                 R.mipmap.dumbbell_concentration_curl,
+                                 R.mipmap.cable_curl,
+                                 R.mipmap.dumbbell_curl,
+                                 R.mipmap.levantamiento_de_barra_de_pie};
         }
         if(idMusculo==2){
             imagenes = new int[]{R.mipmap.extension_vertical_alternada_de_los_brazos,
@@ -75,13 +81,13 @@ public class RecyclerAdapterEjercicio extends  RecyclerView.Adapter<RecyclerAdap
     class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView imagen;
         public TextView nombre;
-        public TextView descripcion;
+        //public TextView descripcion;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imagen = (ImageView)itemView.findViewById(R.id.imagenEjercicio);
             nombre =(TextView)itemView.findViewById(R.id.lblNombreEjercicio);
-            descripcion =(TextView)itemView.findViewById(R.id.lblDescripcionEjercicio);
+            //descripcion =(TextView)itemView.findViewById(R.id.lblDescripcionEjercicio);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +112,7 @@ public class RecyclerAdapterEjercicio extends  RecyclerView.Adapter<RecyclerAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.nombre.setText(ejercicios.get(position).nombreEjercicio);
-        holder.descripcion.setText("");
+        //holder.descripcion.setText("");
         holder.imagen.setImageResource(imagenes[position]);
     }
 

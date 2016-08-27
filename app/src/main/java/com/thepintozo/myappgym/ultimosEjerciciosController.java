@@ -31,6 +31,7 @@ public class ultimosEjerciciosController extends AppCompatActivity {
         extra =  new Extra();
         info = new Informacion(this);
         /******************************************************************************************/
+        //recibo info de la activity anterior
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
 

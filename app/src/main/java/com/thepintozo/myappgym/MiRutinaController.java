@@ -75,13 +75,22 @@ public class MiRutinaController extends AppCompatActivity {
         });
     }
 
+    /**
+     * Funcion encargada de listar los musculos ejercitados  durante la rutina que se esta llevando
+     * a cabo en conjunto con la cantidad de repeticiones que han ido haciendo independiente del
+     * ejercicio que haya hecho
+     */
     private void cargarList() {
         ArrayAdapter<String> adaptador;
         ArrayList<String> Ejercicios =  new ArrayList<>();
         Ejercicios.add("No has realizado ningun ejericio aún");
         String fecha = extra.getFechaCompleta(1);
+        //pido a la base de datos info de los musculo ejercitados junto a la cantidad de repeticiones
+        //que han llevado a cabo con diferentes ejericios
         ArrayList<CapsulaEjercicio> ultimos = info.EjerciciosRutinaActual(getApplicationContext(),fecha);
 
+        //se listan los musculo que se han ejercitados en conjunto con la cantidad de repeticiones que han
+        //realizado en cada uno de ellos
         if(ultimos.size()!=0){
             ArrayList<String> salida = new ArrayList<>();
             for (CapsulaEjercicio c:ultimos) {

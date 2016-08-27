@@ -58,30 +58,19 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         btnVolver = (Button) findViewById(R.id.btnVolverSeleccionarEjercicio);
 
         /******************************************************************************************/
+        /*cargo el recyclerView con el cardview de los ejercicios*/
         recycler = (RecyclerView) findViewById(R.id.recyclerEjercicio);
         layoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(layoutManager);
 
+
         InfoEjerciciosSinConexion info = new InfoEjerciciosSinConexion(this);
+        //pido el listado de los ejercicios almacenados en la base de datos, asociados a un musculo
+        //previamente seleccionado
         ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
         adapter = new RecyclerAdapterEjercicio(ejercicios,this,idRutina,idMusculo);
         recycler.setAdapter(adapter);
 
-        //Inicializo lista correspondientes a la vista
-        /*listaSeleccionarEjercicio = (ListView) findViewById(R.id.listSeleccionarEjercicio);
-        cargarList(this);
-        listaSeleccionarEjercicio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //--(i+1)
-                finish();
-                Intent i2 = new Intent(SeleccionarEjercicioController.this, ComenzarEjercicioController.class);
-                i2.putExtra("idMusculo",idMusculo);
-                i2.putExtra("idEjercicio",ejercicios.get(i).idEjercicio);//<-----
-                i2.putExtra("idRutina",idRutina);
-                startActivity(i2);
-            }
-        });*/
         /******************************************************************************************/
         //asignacion Onclick a los botones
         /***************************
@@ -95,34 +84,5 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
-
-    private void cargarList(Context context) {
-        ArrayAdapter<String> adaptador;
-        InfoEjerciciosSinConexion info = new InfoEjerciciosSinConexion(context);
-        //------------------------------------------------------------------------------------------
-        /*ArrayList<Ejercicio> s = info.obtenerEjercicios();
-        String salida="";
-        for (Ejercicio e :s) {
-            salida = salida+e.idEjercicio+"\n";
-        }
-
-        Toast toast = Toast.makeText(this, "Id: "+salida, Toast.LENGTH_LONG);
-        toast.show();*/
-        //------------------------------------------------------------------------------------------
-        ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
-        ArrayList<String> listaEjerciciosOffLine = new ArrayList<>();
-
-
-        if (ejercicios != null) {
-            for (Ejercicio e :ejercicios) {
-                listaEjerciciosOffLine.add(e.nombreEjercicio);
-            }
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEjerciciosOffLine);
-        } else {
-            String[] listaEjercicios = {"Ejercicio 1"};//, "Ejercicio 2", "Ejercicio 3"};
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaEjercicios);
-        }
-        //listaSeleccionarEjercicio.setAdapter(adaptador);
     }
 }

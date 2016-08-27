@@ -17,22 +17,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/imagenEjercicio"/>
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/imagenEjercicio"
+                android:layout_weight="1"
+                android:layout_margin="5dp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/lblNombreEjercicio"
                 style="@style/styleSubTittle"
                 android:textColor="@color/colorPrimary"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1" />
         </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lblDescripcionEjercicio"
-            style="@style/styleTittle"
-            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

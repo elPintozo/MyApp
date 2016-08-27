@@ -60,6 +60,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         infoRutina =  new InfoRutinaSinConexion(this);
 
         /******************************************************************************************/
+        /*Recibo las variables de la vista anterior*/
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
 
@@ -106,15 +107,16 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         btnDescanzarEjercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
-
-            if(tiempoEjercicioInicial!=0){
-                tiempoDescanso.setBase(SystemClock.elapsedRealtime());
-                tiempoDescanso.start();
-                tiempoEjericio.stop();
-                tiempoEjericio.setBase(SystemClock.elapsedRealtime());
-                ayuda.Mensaje(getApplicationContext(),"Tómate un respiro!");
-            }
+                /*Aqui si se preciona el boton descanso y no ha comenzado ningun ejercicios,
+                 no cuenta como una repeticion realizada*/
+                tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
+                if(tiempoEjercicioInicial!=0){
+                    tiempoDescanso.setBase(SystemClock.elapsedRealtime());
+                    tiempoDescanso.start();
+                    tiempoEjericio.stop();
+                    tiempoEjericio.setBase(SystemClock.elapsedRealtime());
+                    ayuda.Mensaje(getApplicationContext(),"Tómate un respiro!");
+                }
             }
         });
         /***************************
@@ -123,7 +125,11 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         btnComenzarEjercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
+                /*Para saber si se ha realizado o no una repeticion, basta con analizar el valor
+                que posee la variable tiempo de descanso, ya que, de haber registrado segundo, da
+                pie para llevar a cabo el registro*/
                 if(tiempoDescansoInicial!=0 ){
                     actualizarSeries();
                 }
@@ -140,6 +146,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         btnUnidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*aqui por defecto trae por default kilo*/
                 if(btnUnidad.getText().equals("Kilo")){
                     btnUnidad.setText("Libra");
                     Umedida=0;
@@ -155,9 +162,14 @@ public class ComenzarEjercicioController extends AppCompatActivity {
          ***************************/
         btnTermineEjericio.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
+                /*Para saber si se debe o no realizar un registro basta con saber si cuando termino,
+                se encontraba activo el tiempo de descanso, no cuenta el tiempo de ejercicio porque
+                contaria como ejercicio incompleto al no haber realizado el descanso correspondiente*/
                 tiempoDescansoInicial = ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
                 if(tiempoDescansoInicial!=0){
+                    /*lleva a cabo el registro en la base de datos*/
                     actualizarSeries();
                 }
                 finish();
@@ -198,16 +210,23 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         });
     }
 
+    /**
+     * Funcion que carga los snipper correspondiente a la seleccion del peso a usar en el ejercicio
+     * más la cantidad de repeticiones que hara por serie
+     */
     private void cargarSpinners() {
+
         Lpesos = new ArrayList<String>();
         Lseries = new ArrayList<String>();
 
         Lseries.add("0");
         Lpesos.add("0");
 
-        for(int x =5, y=5 ; x<125 ; x=x+5,y++){
-            Lseries.add(String.valueOf(y));
+        for(int x =2; x<100 ; x++){
             Lpesos.add(String.valueOf(x));
+        }
+        for(int y=1 ; y<51 ; y++){
+            Lseries.add(String.valueOf(y));
         }
         ArrayAdapter<String> dataAdapterPeso = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Lpesos);
         ArrayAdapter<String> dataAdapterSerie = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Lseries);
@@ -219,10 +238,15 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         spinnerSeries.setAdapter(dataAdapterSerie);
     }
 
+    /**
+     * Funcion que se encarga de actualizar el listado de las series que lleva del ejercicio que selecciono
+     */
     private void actualizarSeries() {
+        /*se llama a la funcion para hacer el registro en la base de datos*/
         nuevaRepeticion();
         ArrayList<String> seriess = new ArrayList<>();
 
+        /*Realiza el registro para mostrar en la vista lo que lleva hasta el momento*/
         if(series.size()!=0){
             for (Serie s: series ) {
                 seriess.add("Series: "+s.veces+" Peso: "+s.peso+" Tiempo D: "+s.tDescanso+" T Ejercicio: "+s.tEjercicio);
@@ -234,13 +258,19 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, seriess);
         listRepeticiones.setAdapter(adaptador);
     }
-
+    /**
+     * Funcion encargada de realizar el registro de la serie que ha realizando una vez presionado el
+     * boton descanso luego de un ejercicio
+     */
     public void nuevaRepeticion(){
-
+        //solicitu un id
         int id = infoRepeticion.proximaRepeticion();
+        //cargo la serie
         infoRepeticion.cargarDatosDeRepeticion(id,idEjercicio,pesoF,seriesF,tiempoDescansoInicial,tiempoEjercicioInicial,Umedida);
+        //asocio la serie a la rutina que esta llevando en ese momento
         infoRutina.cargarDatosDeRutinaRepeticion(idRutina,id);
 
+        //añado la serie al array que aparece en la vista
         Serie serie = new Serie(id,pesoF,seriesF,tiempoDescansoInicial,tiempoEjercicioInicial);
         series.add(serie);
     }

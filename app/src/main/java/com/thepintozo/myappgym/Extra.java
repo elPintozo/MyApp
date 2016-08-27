@@ -103,25 +103,48 @@ public class Extra {
         return (formato == 0) ? intmes.format(date) : getMesEnEspaniol(txtmes.format(date));
     }
 
+    /**
+     * Funcion encargada de obtener el añodel sistema
+     * @return
+     */
     public static String getAnio(){
         DateFormat intanio = new SimpleDateFormat("yyyy");
         return intanio.format(date);
     }
+
+    /**
+     * Funcion que retorna la fecha en string con diferente formato
+     * @param formato [int] : 1 ó 2 u 3
+     * @return
+     */
     public static String getFechaCompleta(int formato){
         switch (formato){
             case 1:
-                return getDia(0)+"/"+getMes(0)+"/"+getAnio();
+                return getDia(0)+"/"+getMes(0)+"/"+getAnio();//dd/mm/aaaa
             case 2:
-                return " de "+getMes(1)+" de "+getAnio();
+                return " de "+getMes(1)+" de "+getAnio();// de mmmm de aaaa
             case 3:
                 return " de "+getMes(1);
         }
         return "";
     }
+
+    /**
+     * Funcion que me ayuda a desplegar un mensaje por pantalla
+     * @param context : [Context] activity donde se quiere mostrar
+     * @param mensaje :[string] mensaje que se quiere desplegar
+     */
     public static void Mensaje(Context context,String mensaje){
         Toast toast1 = Toast.makeText(context,mensaje, Toast.LENGTH_SHORT);
         toast1.show();
     }
+
+    /**
+     * Funcion encargada de recibir el string de un objeto cronometro y este devuelve el tiempo
+     * transcurrido en segundos en formato numerico
+     * @param tiempo : [string]
+     * @return seg : [int]
+     */
     public static int enSegundos(String tiempo){
         StringTokenizer st = new StringTokenizer(tiempo,":",true);
         //System.out.println("Hay un total de: "+st.countTokens()+" tokens.");

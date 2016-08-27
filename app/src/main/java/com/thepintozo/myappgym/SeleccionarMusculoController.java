@@ -7,10 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -33,6 +31,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_musculo_controller);
         /******************************************************************************************/
+        //recibo info de la activity anterior
         Intent i = getIntent();
         Bundle recibir = i.getExtras();
 
@@ -45,11 +44,14 @@ public class SeleccionarMusculoController extends AppCompatActivity {
         /******************************************************************************************/
         //inicializo los cardview
         /*----------------------------------------------------------------------------------------*/
+        /*cargo el recyclerView con el cardview de los musculos*/
         recycler = (RecyclerView) findViewById(R.id.recyclerMusculo);
         layoutManager = new GridLayoutManager(this,2, LinearLayoutManager.VERTICAL,false);
         recycler.setLayoutManager(layoutManager);
 
+
         InfoMusculoSinConexion inf = new InfoMusculoSinConexion(this);
+        //pido el listado de los musculos almacenados en la base de datos
         musculos = inf.obtenerMusculos();
         adapter = new RecyclerAdapterMusculo(musculos, idRutina, this);
         recycler.setAdapter(adapter);
@@ -71,25 +73,5 @@ public class SeleccionarMusculoController extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
-
-    private void cargarList() {
-
-        ArrayAdapter<String> adaptador;
-        InfoMusculoSinConexion inf = new InfoMusculoSinConexion(this);
-        musculos = inf.obtenerMusculos();
-
-        if(musculos!=null){
-            String[] Ejercicios = {"Hay info"};
-            ArrayList<String> nombres = new ArrayList<>();
-            for (Musculo m: musculos) {
-                nombres.add(m.nombreMusculo);
-            }
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombres);
-        }else{
-            String[] Ejercicios = {"Ejercicio 1", "Ejercicio 2", "Ejercicio 3"};
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Ejercicios);
-        }
-        //listaSeleccionarMusculo.setAdapter(adaptador);
     }
 }
