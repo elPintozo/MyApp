@@ -148,7 +148,6 @@ public class InfoRutinaSinConexion {
             }
             return rutinaRepeticioness;
         }catch (Exception e){
-            rutinaRepeticioness = null;
             return  rutinaRepeticioness;
         }
     }
@@ -169,7 +168,6 @@ public class InfoRutinaSinConexion {
                 rutinas.add(r);
             }
         }catch (Exception e){
-            rutinas =null;
             return rutinas;
         }
         return rutinas;
@@ -202,13 +200,13 @@ public class InfoRutinaSinConexion {
         Rutina ultimaRutina = null;
 
         if(rutinas.size()==0){
-            this.cargarDatosDeRutina(1,fechaa);
-            return 1;
+            this.cargarDatosDeRutina(0,fechaa);
+            return 0;
         }
         else {
             int id=0;
             for (Rutina r: rutinas) {
-                if (r.idRutina>id){
+                if (r.idRutina>=id){
                     id=r.idRutina;
                     ultimaRutina = r;
                 }

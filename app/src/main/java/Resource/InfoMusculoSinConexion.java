@@ -174,7 +174,6 @@ public class InfoMusculoSinConexion{
             return  musculos;
         }
         catch (Exception e){
-            musculos = null;
             return musculos ;
         }
     }

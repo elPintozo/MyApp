@@ -117,7 +117,6 @@ public class InfoRepeticionSinConexion {
             }
             return repeticiones;
         }catch (Exception e){
-            repeticiones =null;
             return repeticiones;
         }
     }

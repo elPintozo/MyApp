@@ -58,23 +58,30 @@ public class RecyclerAdapterEjercicio extends  RecyclerView.Adapter<RecyclerAdap
         }
         if(idMusculo==4){
             imagenes = new int[]{R.mipmap.squats_on_the_shoulders,
-                    R.mipmap.squats_on_the_shoulders,
-                    R.mipmap.pacing_with_dumbbells};
+                                 R.mipmap.squats_on_the_shoulders,
+                                 R.mipmap.pacing_with_dumbbells};
         }
         if(idMusculo==5){
             imagenes = new int[]{R.mipmap.cable_upright_row,
-                    R.mipmap.elevacion_lateral_de_mancuernas,
-                    R.mipmap.elevacion_trasera_de_mancuerna};
+                                 R.mipmap.elevacion_lateral_de_mancuernas,
+                                 R.mipmap.elevacion_trasera_de_mancuerna};
         }
         if(idMusculo==6){
             imagenes = new int[]{R.mipmap.pull_over_con_polea_alta,
-                    R.mipmap.polea_trasnuca,
-                    R.mipmap.polea_trasnuca};
+                                 R.mipmap.espaldados,
+                                 R.mipmap.polea_trasnuca,
+                                 R.mipmap.back_raise,
+                                 R.mipmap.espaldacuatro,
+                                 R.mipmap.espaldatres,
+                                 R.mipmap.espaldauno,
+                                 R.mipmap.one_arm_row,
+                                 R.mipmap.stiff_leg_barbell_deadlift,
+                                 R.mipmap.wide_overhand_grip_pull_up};
         }
         if(idMusculo==7){
             imagenes = new int[]{R.mipmap.levantamiento_de_mancuernas_en_inclinacion,
-                    R.mipmap.press_de_banca_inclinado,
-                    R.mipmap.apertura_de_mancuernas_inclinado};
+                                 R.mipmap.press_de_banca_inclinado,
+                                 R.mipmap.apertura_de_mancuernas_inclinado};
         }
     }
 

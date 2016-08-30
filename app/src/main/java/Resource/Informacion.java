@@ -106,17 +106,17 @@ public class Informacion {
         ejercicios.add(a2);
         Ejercicio a3 = new Ejercicio(3,1,"Zottman curl","detalle",1);
         ejercicios.add(a3);
-        Ejercicio a4 = new Ejercicio(4,1,"Barbell preacher url","detalle",1);
+        Ejercicio a4 = new Ejercicio(22,1,"Barbell preacher url","detalle",1);
         ejercicios.add(a4);
-        Ejercicio a5 = new Ejercicio(5,1,"Cable alternating bend","detalle",1);
+        Ejercicio a5 = new Ejercicio(23,1,"Cable alternating bend","detalle",1);
         ejercicios.add(a5);
-        Ejercicio a6 = new Ejercicio(6,1,"Dumbbell concentration curl","detalle",1);
+        Ejercicio a6 = new Ejercicio(24,1,"Dumbbell concentration curl","detalle",1);
         ejercicios.add(a6);
-        Ejercicio a7 = new Ejercicio(7,1,"Cable curl","detalle",1);
+        Ejercicio a7 = new Ejercicio(25,1,"Cable curl","detalle",1);
         ejercicios.add(a7);
-        Ejercicio a8 = new Ejercicio(8,1,"Dumbbell curl","detalle",1);
+        Ejercicio a8 = new Ejercicio(26,1,"Dumbbell curl","detalle",1);
         ejercicios.add(a8);
-        Ejercicio a9 = new Ejercicio(9,1,"Levantamiento de barra de pie","detalle",1);
+        Ejercicio a9 = new Ejercicio(27,1,"Levantamiento de barra de pie","detalle",1);
         ejercicios.add(a9);
 
         /*Tricep*/
@@ -158,6 +158,20 @@ public class Informacion {
         ejercicios.add(f2);
         Ejercicio f3 = new Ejercicio(18,6,"polea trasnuca","detalle",1);
         ejercicios.add(f3);
+        Ejercicio f4 = new Ejercicio(28,6,"Back raise","detalle",1);
+        ejercicios.add(f4);
+        Ejercicio f5 = new Ejercicio(29,6,"Ejercicio espalda Cuatro","detalle",1);
+        ejercicios.add(f5);
+        Ejercicio f6 = new Ejercicio(30,6,"Ejercicio espalda tres","detalle",1);
+        ejercicios.add(f6);
+        Ejercicio f7 = new Ejercicio(31,6,"Ejercicio espalda uno","detalle",1);
+        ejercicios.add(f7);
+        Ejercicio f8 = new Ejercicio(32,6,"One arm row","detalle",1);
+        ejercicios.add(f8);
+        Ejercicio f9 = new Ejercicio(33,6,"Stiff leg barbell deadlift","detalle",1);
+        ejercicios.add(f9);
+        Ejercicio f10 = new Ejercicio(34,6,"Wide overhand grip pull up","detalle",1);
+        ejercicios.add(f10);
 
         /*Pectorales*/
         Ejercicio g1 = new Ejercicio(19,7,"levantamiento de mancuerna en inclinacion","detalle",1);

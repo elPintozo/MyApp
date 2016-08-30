@@ -100,7 +100,6 @@ public class InfoEjerciciosSinConexion {
             return  ejercicios;
         }
         catch (Exception e){
-            ejercicios = null;
             return ejercicios ;
         }
     }
