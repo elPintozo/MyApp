@@ -47,6 +47,7 @@ public class SeleccionarMusculoController extends AppCompatActivity {
         /*cargo el recyclerView con el cardview de los musculos*/
         recycler = (RecyclerView) findViewById(R.id.recyclerMusculo);
         layoutManager = new GridLayoutManager(this,2, LinearLayoutManager.VERTICAL,false);
+        //layoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(layoutManager);
 
 

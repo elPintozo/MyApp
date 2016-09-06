@@ -25,4 +25,27 @@
         <item name="android:textAlignment" tools:targetApi="jelly_bean_mr1">center</item>
     </style>
 
+    <style name="styleTittleUltimosEjercicios">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="styleSubTittleUltimosEjercicios">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/colorDivider</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="styleTittleMiRutina">
+        <item name="android:textSize">22dp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="styleSubTittleMiRutina">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/colorDivider</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

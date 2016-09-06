@@ -20,7 +20,10 @@ public class InfoMusculoSinConexion{
     }
 
     /**
-     * Funcion encarga de registrar un musculo
+     * Funcion encargada de cargar un registro de tipo musculo desde el smartphone
+     * @param id [int] : id del musculo a cargar
+     * @param nombre [String] : nombre del musculo
+     * @return [int] : 1 si todo sale bien, -1 el registro ya existe, 0 error
      */
     public int cargarDatosDeMusculo(int id,
                                     String nombre ) {
@@ -71,6 +74,38 @@ public class InfoMusculoSinConexion{
         }
         catch (Exception e){
             m = null;
+            return m ;
+        }
+    }
+    /**
+     * Funcion que retorna un Objeto Musculo si es que este se encuentra en la base de datos
+     * @param nombreMusculo [String] : corresponde al nombre del musculo buscado
+     * @return [Musculo] : Un objeto de tipo musculo
+     */
+    public Musculo buscarMusculoPorNombre(String nombreMusculo){
+        Musculo m = null;
+        //Conexion de consulta con la BD
+        SQLiteDatabase bd = data.getReadableDatabase();
+        //el id del elemento que busco
+        String[] where ={nombreMusculo};
+        //Que quiero obtener en el orden que quiero
+        String[] datosPedidos = {DataOffLine.DatosTablaMusculo.COLUMNA_id,
+                DataOffLine.DatosTablaMusculo.COLUMNA_nombre,
+                DataOffLine.DatosTablaMusculo.COLUMNA_estado};
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaMusculo.NOMBRE_TABLA,
+                    datosPedidos,
+                    DataOffLine.DatosTablaMusculo.COLUMNA_nombre+"=?",
+                    where, null, null, null);
+
+            while (c.moveToNext()) {
+                //genero el objeto que enviare como resultado
+                m = new Musculo(Integer.parseInt(c.getString(0)), c.getString(1), Integer.parseInt(c.getString(2)));
+            }
+            return m;
+        }
+        catch (Exception e){
             return m ;
         }
     }
@@ -197,6 +232,26 @@ public class InfoMusculoSinConexion{
         }
         catch (Exception e){
             return 0;
+        }
+    }
+
+    /**
+     * Funcion encargada de retornar el proximo id para una nuevo ejercicio
+     * @return [int] : id para una nuevo ejercicio
+     */
+    public int proximoMusculo(){
+        ArrayList<Musculo> musculos = this.obtenerMusculos();
+        if(musculos.size()==0){
+            return 1;
+        }
+        else {
+            int id=0;
+            for (Musculo r: musculos) {
+                if (r.idMusculo>id){
+                    id=r.idMusculo;
+                }
+            }
+            return (id+1);
         }
     }
 }

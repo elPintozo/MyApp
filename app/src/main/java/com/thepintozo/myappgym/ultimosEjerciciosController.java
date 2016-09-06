@@ -3,13 +3,15 @@ package com.thepintozo.myappgym;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import Model.RecyclerAdapterUltimosMusculosEjercitados;
 import Resource.InfoRutinaSinConexion;
 import Resource.Informacion;
 
@@ -17,12 +19,16 @@ public class ultimosEjerciciosController extends AppCompatActivity {
 
     private Button btnComenzarRutina;
     private Button btnVolverAMain;
-    private ListView listaUltimosEjercicios;
 
     private InfoRutinaSinConexion infoRutina;
     private Extra extra;
     private int idRutina;
     private Informacion info;
+
+    private RecyclerView recycler;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +48,24 @@ public class ultimosEjerciciosController extends AppCompatActivity {
             idRutina=0;
         }
         /******************************************************************************************/
+        //inicializo los cardview
+        /*----------------------------------------------------------------------------------------*/
+        /*cargo el recyclerView con el cardview de los musculos*/
+        recycler = (RecyclerView) findViewById(R.id.recyclerUltimosEjercicios);
+        layoutManager = new GridLayoutManager(this,2, LinearLayoutManager.VERTICAL,false);
+        //layoutManager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(layoutManager);
+
+        String fecha = extra.getFechaCompleta(1);
+        ArrayList<String> ultimosEjercicio = info.ultimosEjercicios(getApplicationContext(),fecha);
+        adapter = new RecyclerAdapterUltimosMusculosEjercitados(ultimosEjercicio, fecha, this);
+        recycler.setAdapter(adapter);
+        /*----------------------------------------------------------------------------------------*/
+        /******************************************************************************************/
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
         btnComenzarRutina = (Button)findViewById(R.id.btnComenzarRutina);
         btnVolverAMain = (Button)findViewById(R.id.btnVolverAMain);
-        /******************************************************************************************/
-        //Inicializo lista correspondientes a la vista
-        listaUltimosEjercicios = (ListView)findViewById(R.id.listUltimosEjerciciosRealizados);
-        cargarList();
         /******************************************************************************************/
         //asignacion Onclick a los botones
         /***************************
@@ -77,24 +93,5 @@ public class ultimosEjerciciosController extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
-
-    /**
-     * Funcion encargada de listar musculos ejercitados la rutina anterior
-     */
-    private void cargarList() {
-        ArrayAdapter<String> adaptador;
-        ArrayList<String> ejercicios = new ArrayList<>();
-        ejercicios.add("No has ejercitado nada por ahora");
-        String fecha = extra.getFechaCompleta(1);
-
-        ArrayList<String> ultimosEjercicio = info.ultimosEjercicios(getApplicationContext(),fecha);
-
-        if(ultimosEjercicio.size()!=0){
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ultimosEjercicio);
-        }else{
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ejercicios);
-        }
-        listaUltimosEjercicios.setAdapter(adaptador);
     }
 }

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         data = new Informacion(getApplicationContext());
         data.cargarInfo(this);
-
         /******************************************************************************************/
         //Inicializo la imagen de perfil
         imagenPerfil = (ImageView) findViewById(R.id.profileImage);

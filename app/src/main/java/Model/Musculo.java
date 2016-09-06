@@ -17,4 +17,7 @@ public class Musculo {
         Estado = estado;
     }
 
+    public Musculo(String nombreMusculo) {
+        this.nombreMusculo = nombreMusculo;
+    }
 }

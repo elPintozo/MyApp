@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.thepintozo.myappgym.R;
 import com.thepintozo.myappgym.SeleccionarEjercicioController;
-import com.thepintozo.myappgym.SeleccionarMusculoController;
 
 import java.util.ArrayList;
 
@@ -21,13 +19,6 @@ import java.util.ArrayList;
  */
 public class RecyclerAdapterMusculo extends RecyclerView.Adapter<RecyclerAdapterMusculo.ViewHolder> {
 
-    int[] imagenes={R.mipmap.bicep,
-                    R.mipmap.tricep,
-                    R.mipmap.abdomen,
-                    R.mipmap.piernas,
-                    R.mipmap.hombro,
-                    R.mipmap.espalda,
-                    R.mipmap.pectorales};
     private ArrayList<Musculo> musculos = new ArrayList<>();
     private int idRutina;
     private Context context;
@@ -74,8 +65,15 @@ public class RecyclerAdapterMusculo extends RecyclerView.Adapter<RecyclerAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nombre.setText(musculos.get(position).nombreMusculo);
-        holder.imagen.setImageResource(imagenes[position]);
+        try {
+            holder.nombre.setText(musculos.get(position).nombreMusculo);
+            String i = musculos.get(position).nombreMusculo.toLowerCase().replace(' ','_');
+            int m = context.getResources().getIdentifier(i,"drawable",context.getPackageName());
+            holder.imagen.setImageResource(m);
+        }catch (Exception e){
+            holder.nombre.setText("Error");
+            holder.imagen.setImageResource(R.drawable.error);
+        }
     }
 
     @Override

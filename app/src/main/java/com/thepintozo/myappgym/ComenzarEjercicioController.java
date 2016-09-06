@@ -219,10 +219,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         Lpesos = new ArrayList<String>();
         Lseries = new ArrayList<String>();
 
-        Lseries.add("0");
-        Lpesos.add("0");
-
-        for(int x =2; x<100 ; x++){
+        for(int x =1; x<100 ; x++){
             Lpesos.add(String.valueOf(x));
         }
         for(int y=1 ; y<51 ; y++){

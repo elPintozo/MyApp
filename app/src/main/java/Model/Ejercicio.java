@@ -20,4 +20,9 @@ public class Ejercicio {
         this.detalleEjercicio = detalleEjercicio;
         this.estado = estado;
     }
+
+    public Ejercicio(int idMusculo, String nombreEjercicio) {
+        this.idMusculo = idMusculo;
+        this.nombreEjercicio = nombreEjercicio;
+    }
 }

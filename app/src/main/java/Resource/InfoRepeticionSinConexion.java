@@ -120,6 +120,11 @@ public class InfoRepeticionSinConexion {
             return repeticiones;
         }
     }
+
+    /**
+     * Funcion encargada de retornar el proximo id para una nueva repeticion
+     * @return [int] : id para una nueva repeticion
+     */
     public int proximaRepeticion(){
         ArrayList<Repeticion> repeticiones = this.allRepeticion();
         if(repeticiones.size()==0){

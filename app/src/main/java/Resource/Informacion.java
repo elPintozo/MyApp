@@ -36,34 +36,28 @@ public class Informacion {
         ArrayList<Musculo> musculos     = new ArrayList<>();
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
 
-        if (infoMusculo.obtenerMusculos().size()==0) {
-            musculos = cargarMusculos();
-        }
+        //cargo la info referente a los musculos y ejercicios contenidos en local
+        musculos = cargarMusculos();
+        ejercicios = cargarEjercicios();
 
-        /*musculos*/
-        if(musculos.size()!=0) {
-            for (int x = 0; x < musculos.size(); x++) {
-                Musculo m = musculos.get(x);
-                infoMusculo.cargarDatosDeMusculo(m.idMusculo, m.nombreMusculo);
+        //verifico si la cantidad de musculo en la bd es la misma que en el listado de ultimos musculos
+        if(musculos.size()!=infoMusculo.obtenerMusculos().size()){
+            //recorro la lista de musculos
+            for (Musculo m: musculos) {
+                //si un musculo no se encuentra registrado en la bd se añade
+                if(infoMusculo.buscarMusculoPorNombre(m.nombreMusculo)==null){
+                    infoMusculo.cargarDatosDeMusculo(infoMusculo.proximoMusculo(), m.nombreMusculo);
+                }
             }
         }
-
-        if (infoEjericio.obtenerEjercicios().size()==0) {
-            InfoEjerciciosSinConexion f = new InfoEjerciciosSinConexion(context);
-            /*f.borrarEjercicio(1);
-            f.borrarEjercicio(4);
-            f.borrarEjercicio(7);
-            f.borrarEjercicio(10);
-            f.borrarEjercicio(13);
-            f.borrarEjercicio(19);*/
-            ejercicios = cargarEjercicios();
-        }
-
-        //ejercicios
-        if(ejercicios.size()!=0) {
-            for (int x = 0; x < ejercicios.size(); x++) {
-                Ejercicio e = ejercicios.get(x);
-                infoEjericio.cargarDatosDeEjercicio(e.idEjercicio, e.idMusculo, e.nombreEjercicio, e.detalleEjercicio);
+        //verifico si la cantidad de ejercicios en la bd es la misma que en el listado de ultimos ejercicios
+        if(ejercicios.size()!=infoEjericio.obtenerEjercicios().size()){
+            //recorro la lista de ejercicios
+            for (Ejercicio e:ejercicios ) {
+                //si un ejercicio no se encuentra en la base de datos se añade
+                if(infoEjericio.buscarEjercicio(e.nombreEjercicio)==null){
+                    infoEjericio.cargarDatosDeEjercicio(infoEjericio.proximoEjercicio(), e.idMusculo, e.nombreEjercicio, "Proximamente");
+                }
             }
         }
     }
@@ -75,110 +69,121 @@ public class Informacion {
 
         ArrayList<Musculo> musculos = new ArrayList<>();
 
-        Musculo a = new Musculo(1,"Bicep",1);
+        Musculo a = new Musculo("Bicep");
         musculos.add(a);
-        Musculo b = new Musculo(2,"Tricep",1);
+        Musculo b = new Musculo("Tricep");
         musculos.add(b);
-        Musculo c = new Musculo(3,"Abdomen",1);
+        Musculo c = new Musculo("Abdomen");
         musculos.add(c);
-        Musculo d = new Musculo(4,"Piernas",1);
+        Musculo d = new Musculo("Piernas");
         musculos.add(d);
-        Musculo e = new Musculo(5,"Hombros",1);
+        Musculo e = new Musculo("Hombros");
         musculos.add(e);
-        Musculo f = new Musculo(6,"Espalda",1);
+        Musculo f = new Musculo("Espalda");
         musculos.add(f);
-        Musculo g = new Musculo(7,"Pectorales",1);
+        Musculo g = new Musculo("Pectorales");
         musculos.add(g);
 
         return musculos;
     }
     /**
      * Infomación predefinida para uso offline
-     * @return
      */
     public ArrayList<Ejercicio> cargarEjercicios(){
 
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
         /*Bicep*/
-        Ejercicio a1 = new Ejercicio(1,1,"Reverse wrist curl","detalle",1);
+        Ejercicio a1 = new Ejercicio(1,"Reverse wrist curl");
         ejercicios.add(a1);
-        Ejercicio a2 = new Ejercicio(2,1,"Standing biceps curl","detalle",1);
+        Ejercicio a2 = new Ejercicio(1,"Standing biceps curl");
         ejercicios.add(a2);
-        Ejercicio a3 = new Ejercicio(3,1,"Zottman curl","detalle",1);
+        Ejercicio a3 = new Ejercicio(1,"Zottman curl");
         ejercicios.add(a3);
-        Ejercicio a4 = new Ejercicio(22,1,"Barbell preacher url","detalle",1);
+        Ejercicio a4 = new Ejercicio(1,"Barbell preacher curl");
         ejercicios.add(a4);
-        Ejercicio a5 = new Ejercicio(23,1,"Cable alternating bend","detalle",1);
+        Ejercicio a5 = new Ejercicio(1,"Cable alternating bend");
         ejercicios.add(a5);
-        Ejercicio a6 = new Ejercicio(24,1,"Dumbbell concentration curl","detalle",1);
+        Ejercicio a6 = new Ejercicio(1,"Dumbbell concentration curl");
         ejercicios.add(a6);
-        Ejercicio a7 = new Ejercicio(25,1,"Cable curl","detalle",1);
+        Ejercicio a7 = new Ejercicio(1,"Cable curl");
         ejercicios.add(a7);
-        Ejercicio a8 = new Ejercicio(26,1,"Dumbbell curl","detalle",1);
+        Ejercicio a8 = new Ejercicio(1,"Dumbbell curl");
         ejercicios.add(a8);
-        Ejercicio a9 = new Ejercicio(27,1,"Levantamiento de barra de pie","detalle",1);
+        Ejercicio a9 = new Ejercicio(1,"Levantamiento de barra de pie");
         ejercicios.add(a9);
 
         /*Tricep*/
-        Ejercicio b1 = new Ejercicio(4,2,"extension vertical alternada de los brazos","detalle",1);
+        Ejercicio b1 = new Ejercicio(2,"extension vertical alternada de los brazos");
         ejercicios.add(b1);
-        Ejercicio b2 = new Ejercicio(5,2,"extension alternada de los antebrazos","detalle",1);
+        Ejercicio b2 = new Ejercicio(2,"extension alternada de los antebrazos");
         ejercicios.add(b2);
-        Ejercicio b3 = new Ejercicio(6,2,"extension de tricep en polea","detalle",1);
+        Ejercicio b3 = new Ejercicio(2,"extension de triceps en polea");
         ejercicios.add(b3);
+        Ejercicio b4 = new Ejercicio(2,"Ejercicio tricep uno");
+        ejercicios.add(b4);
+        Ejercicio b5 = new Ejercicio(2,"Negative dip");
+        ejercicios.add(b5);
+        Ejercicio b6 = new Ejercicio(2,"Barbell military press");
+        ejercicios.add(b6);
+        Ejercicio b7 = new Ejercicio(2,"Ejercicio tricep dos");
+        ejercicios.add(b7);
+        Ejercicio b8 = new Ejercicio(2,"Ejercicio tricep tres");
+        ejercicios.add(b8);
+        Ejercicio b9 = new Ejercicio(2,"Ejercicio tricep cinco");
+        ejercicios.add(b9);
 
         /*Abdomen*/
-        Ejercicio c1 = new Ejercicio(7,3,"clam","detalle",1);
+        Ejercicio c1 = new Ejercicio(3,"clam");
         ejercicios.add(c1);
-        Ejercicio c2 = new Ejercicio(8,3,"bumbbell slide bend","detalle",1);
+        Ejercicio c2 = new Ejercicio(3,"dumbbell side bend");
         ejercicios.add(c2);
-        Ejercicio c3 = new Ejercicio(9,3,"cable kneeling crunch","detalle",1);
+        Ejercicio c3 = new Ejercicio(3,"cable kneeling crunch");
         ejercicios.add(c3);
 
         /*Piernas*/
-        Ejercicio d1 = new Ejercicio(10,4,"squats on the shoulders","detalle",1);
+        Ejercicio d1 = new Ejercicio(4,"squats on the shoulders");
         ejercicios.add(d1);
-        Ejercicio d2 = new Ejercicio(11,4,"walk on the elliptical","detalle",1);
+        Ejercicio d2 = new Ejercicio(4,"walk on the elliptical");
         ejercicios.add(d2);
-        Ejercicio d3 = new Ejercicio(12,4,"pacing with dumbbells","detalle",1);
+        Ejercicio d3 = new Ejercicio(4,"pacing with dumbbells");
         ejercicios.add(d3);
 
         /*Hombros*/
-        Ejercicio e1 = new Ejercicio(13,5,"cable upright row","detalle",1);
+        Ejercicio e1 = new Ejercicio(5,"cable upright row");
         ejercicios.add(e1);
-        Ejercicio e2 = new Ejercicio(14,5,"elevacion lateral de mancuernas","detalle",1);
+        Ejercicio e2 = new Ejercicio(5,"elevacion lateral de mancuernas");
         ejercicios.add(e2);
-        Ejercicio e3 = new Ejercicio(15,5,"elevacion trasera de mancuerna","detalle",1);
+        Ejercicio e3 = new Ejercicio(5,"elevacion trasera de mancuerna");
         ejercicios.add(e3);
 
         /*Espalda*/
-        Ejercicio f1 = new Ejercicio(16,6,"pull over con polea alta","detalle",1);
+        Ejercicio f1 = new Ejercicio(6,"pull over con polea alta");
         ejercicios.add(f1);
-        Ejercicio f2 = new Ejercicio(17,6,"remo horizontal con barra","detalle",1);
+        Ejercicio f2 = new Ejercicio(6,"remo horizontal con barra");
         ejercicios.add(f2);
-        Ejercicio f3 = new Ejercicio(18,6,"polea trasnuca","detalle",1);
+        Ejercicio f3 = new Ejercicio(6,"polea trasnuca");
         ejercicios.add(f3);
-        Ejercicio f4 = new Ejercicio(28,6,"Back raise","detalle",1);
+        Ejercicio f4 = new Ejercicio(6,"Back raise");
         ejercicios.add(f4);
-        Ejercicio f5 = new Ejercicio(29,6,"Ejercicio espalda Cuatro","detalle",1);
+        Ejercicio f5 = new Ejercicio(6,"Ejercicio espalda Cuatro");
         ejercicios.add(f5);
-        Ejercicio f6 = new Ejercicio(30,6,"Ejercicio espalda tres","detalle",1);
+        Ejercicio f6 = new Ejercicio(6,"Ejercicio espalda tres");
         ejercicios.add(f6);
-        Ejercicio f7 = new Ejercicio(31,6,"Ejercicio espalda uno","detalle",1);
+        Ejercicio f7 = new Ejercicio(6,"Ejercicio espalda uno");
         ejercicios.add(f7);
-        Ejercicio f8 = new Ejercicio(32,6,"One arm row","detalle",1);
+        Ejercicio f8 = new Ejercicio(6,"One arm row");
         ejercicios.add(f8);
-        Ejercicio f9 = new Ejercicio(33,6,"Stiff leg barbell deadlift","detalle",1);
+        Ejercicio f9 = new Ejercicio(6,"Stiff leg barbell deadlift");
         ejercicios.add(f9);
-        Ejercicio f10 = new Ejercicio(34,6,"Wide overhand grip pull up","detalle",1);
+        Ejercicio f10 = new Ejercicio(6,"Wide overhand grip pull up");
         ejercicios.add(f10);
 
         /*Pectorales*/
-        Ejercicio g1 = new Ejercicio(19,7,"levantamiento de mancuerna en inclinacion","detalle",1);
+        Ejercicio g1 = new Ejercicio(7,"Levantamiento de mancuerna en inclinacion");
         ejercicios.add(g1);
-        Ejercicio g2 = new Ejercicio(20,7,"press de banca con inclinacion","detalle",1);
+        Ejercicio g2 = new Ejercicio(7,"Press de banca con inclinacion");
         ejercicios.add(g2);
-        Ejercicio g3 = new Ejercicio(21,7,"apertura de mancuernas con inclinacion","detalle",1);
+        Ejercicio g3 = new Ejercicio(7,"Apertura de mancuernas con inclinacion");
         ejercicios.add(g3);
 
         return ejercicios;

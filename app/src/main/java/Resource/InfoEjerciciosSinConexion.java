@@ -149,4 +149,67 @@ public class InfoEjerciciosSinConexion {
             return ejercicios ;
         }
     }
+
+    /**
+     * Funcion encargada de buscar un ejercicio por su nombre dentro de la base de datos
+     * @param nombreEjercicio [String] : nombre del ejercicio a buscar
+     * @return [Ejercicio] : un objeto del tipo musculo
+     */
+    public Ejercicio buscarEjercicio(String nombreEjercicio){
+        Ejercicio e =null;
+
+        //Conexion de consulta con la BD
+        SQLiteDatabase bd = data.getReadableDatabase();
+
+        //Que quiero obtener en el orden que quiero
+        String[] datosPedidos = {DataOffLine.DatosTablaEjercicio.COLUMNA_id,
+                DataOffLine.DatosTablaEjercicio.COLUMNA_idMusculo,
+                DataOffLine.DatosTablaEjercicio.COLUMNA_nombre,
+                DataOffLine.DatosTablaEjercicio.COLUMNA_detalle,
+                DataOffLine.DatosTablaEjercicio.COLUMNA_estado};
+
+        //el id del elemento que quiero borrar
+        String[] where ={nombreEjercicio};
+
+        //indico en que columna buscar
+        String seleccion = DataOffLine.DatosTablaEjercicio.COLUMNA_nombre+"=?";
+
+        try {
+            // realizo la consulta
+            Cursor c = bd.query( DataOffLine.DatosTablaEjercicio.NOMBRE_TABLA,
+                    datosPedidos,
+                    seleccion,where, null, null, null);
+
+            while (c.moveToNext()){
+                e  = new Ejercicio(Integer.parseInt(c.getString(0)),
+                        Integer.parseInt(c.getString(1)),
+                        c.getString(2),
+                        c.getString(3),
+                        Integer.parseInt(c.getString(4)));
+            }
+            return  e;
+        }
+        catch (Exception ex){
+            return e ;
+        }
+    }
+    /**
+     * Funcion encargada de retornar el proximo id para una nuevo ejercicio
+     * @return [int] : id para una nuevo ejercicio
+     */
+    public int proximoEjercicio(){
+        ArrayList<Ejercicio> ejercicios = this.obtenerEjercicios();
+        if(ejercicios.size()==0){
+            return 1;
+        }
+        else {
+            int id=0;
+            for (Ejercicio r: ejercicios) {
+                if (r.idEjercicio>id){
+                    id=r.idEjercicio;
+                }
+            }
+            return (id+1);
+        }
+    }
 }
