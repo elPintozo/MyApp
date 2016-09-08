@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +33,6 @@ import Resource.InfoMusculoSinConexion;
 
 public class SeleccionarEjercicioController extends AppCompatActivity {
 
-    private Button btnVolver;
     private int idMusculo;
     private int idRutina;
     private ArrayList<Ejercicio> ejercicios;
@@ -37,10 +40,15 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_ejercicio_controller);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_seleccionar_ejercicio);
+        this.setSupportActionBar(toolbar);
         /******************************************************************************************/
         //recibo info de la seleccion anterior
         Intent i = getIntent();
@@ -53,9 +61,6 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
             idMusculo = 1;
             idRutina = 1;
         }
-        /******************************************************************************************/
-        //Inicializo los botones correspondientes a la vista
-        btnVolver = (Button) findViewById(R.id.btnVolverSeleccionarEjercicio);
 
         /******************************************************************************************/
         /*cargo el recyclerView con el cardview de los ejercicios*/
@@ -70,19 +75,24 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         ejercicios = info.obtenerEjerciciosDeUnMusculo(idMusculo);
         adapter = new RecyclerAdapterEjercicio(ejercicios,this,idRutina,idMusculo);
         recycler.setAdapter(adapter);
+    }
 
-        /******************************************************************************************/
-        //asignacion Onclick a los botones
-        /***************************
-         BOTON VOLVER
-         ***************************/
-        btnVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_toolbar_seleccionar_ejercicio,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.volver_seleccionar_ejercicio:
                 finish();
                 Intent i = new Intent(SeleccionarEjercicioController.this, SeleccionarMusculoController.class);
                 startActivity(i);
-            }
-        });
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

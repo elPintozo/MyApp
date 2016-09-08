@@ -6,26 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.thepintozo.myappgym.SeleccionarMusculoController">
 
+    <include
+        android:id="@+id/toolbar_seleccionar_musculo"
+        layout="@layout/toolbar_seleccionar_musculo"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/colorPrimary">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/tittleSelectMuscle"
-                android:id="@+id/textView5"
-                style="@style/styleTittle" />
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -44,44 +34,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/btnReturnSelectedMuscle"
-                android:id="@+id/btnVolverSeleccionarMusculo"
-                android:layout_weight="1"
-                style="@style/styleTextButtom"
-                android:background="@color/colorSecondaryText"
-                android:layout_margin="2dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/lblrecommendation"
-                android:id="@+id/txtRecomendacionSeleccionarMusculo"
-                android:layout_weight="1"
-                style="@style/styleSubTittle"
-                android:textColor="@color/colorPrimary"
-                android:layout_margin="2dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></LinearLayout>
-    </LinearLayout>
 </LinearLayout>
