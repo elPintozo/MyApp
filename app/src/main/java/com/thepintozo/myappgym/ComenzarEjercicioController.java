@@ -34,7 +34,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     private int idMusculo;
     private int idEjercicio;
     private int idRutina;
-    private int Umedida=1;
+    private int Umedida=0;
     private int repeticionesInicial;
     private int tiempoEjercicioInicial;
     private int tiempoDescansoInicial;

@@ -143,10 +143,26 @@ public class Informacion {
         /*Piernas*/
         Ejercicio d1 = new Ejercicio(4,"squats on the shoulders");
         ejercicios.add(d1);
-        Ejercicio d2 = new Ejercicio(4,"walk on the elliptical");
+        Ejercicio d2 = new Ejercicio(4,"Flexion simulator lying");
         ejercicios.add(d2);
         Ejercicio d3 = new Ejercicio(4,"pacing with dumbbells");
         ejercicios.add(d3);
+        Ejercicio d4 = new Ejercicio(4,"Hack squats");
+        ejercicios.add(d4);
+        Ejercicio d5 = new Ejercicio(4,"Inclined leg press");
+        ejercicios.add(d5);
+        Ejercicio d6 = new Ejercicio(4,"Leg extension");
+        ejercicios.add(d6);
+        Ejercicio d7 = new Ejercicio(4,"Legs sitting");
+        ejercicios.add(d7);
+        Ejercicio d8 = new Ejercicio(4,"Legs straigh");
+        ejercicios.add(d8);
+        Ejercicio d9 = new Ejercicio(4,"Ejercicio piernas uno");
+        ejercicios.add(d9);
+        Ejercicio d10 = new Ejercicio(4,"Ejercicio piernas dos");
+        ejercicios.add(d10);
+        Ejercicio d11 = new Ejercicio(4,"Ejercicio piernas tres");
+        ejercicios.add(d11);
 
         /*Hombros*/
         Ejercicio e1 = new Ejercicio(5,"cable upright row");
@@ -155,6 +171,18 @@ public class Informacion {
         ejercicios.add(e2);
         Ejercicio e3 = new Ejercicio(5,"elevacion trasera de mancuerna");
         ejercicios.add(e3);
+        Ejercicio e4 = new Ejercicio(5,"Ejercicio de hombros uno");
+        ejercicios.add(e4);
+        Ejercicio e5 = new Ejercicio(5,"Ejercicio de hombros dos");
+        ejercicios.add(e5);
+        Ejercicio e6 = new Ejercicio(5,"Ejercicio de hombros tres");
+        ejercicios.add(e6);
+        Ejercicio e7 = new Ejercicio(5,"Elevacion alterna de mancuernas");
+        ejercicios.add(e7);
+        Ejercicio e8 = new Ejercicio(5,"Elevacion frontal alternada de polea");
+        ejercicios.add(e8);
+        Ejercicio e9 = new Ejercicio(5,"Elevacion frontal de mancuerna");
+        ejercicios.add(e9);
 
         /*Espalda*/
         Ejercicio f1 = new Ejercicio(6,"pull over con polea alta");
@@ -165,11 +193,11 @@ public class Informacion {
         ejercicios.add(f3);
         Ejercicio f4 = new Ejercicio(6,"Back raise");
         ejercicios.add(f4);
-        Ejercicio f5 = new Ejercicio(6,"Ejercicio espalda Cuatro");
+        Ejercicio f5 = new Ejercicio(6,"Ejercicio espalda uno");
         ejercicios.add(f5);
-        Ejercicio f6 = new Ejercicio(6,"Ejercicio espalda tres");
+        Ejercicio f6 = new Ejercicio(6,"Ejercicio espalda dos");
         ejercicios.add(f6);
-        Ejercicio f7 = new Ejercicio(6,"Ejercicio espalda uno");
+        Ejercicio f7 = new Ejercicio(6,"Ejercicio espalda tres");
         ejercicios.add(f7);
         Ejercicio f8 = new Ejercicio(6,"One arm row");
         ejercicios.add(f8);
@@ -177,14 +205,24 @@ public class Informacion {
         ejercicios.add(f9);
         Ejercicio f10 = new Ejercicio(6,"Wide overhand grip pull up");
         ejercicios.add(f10);
+        Ejercicio f11 = new Ejercicio(6,"Ejercicio espalda cuatro");
+        ejercicios.add(f11);
 
         /*Pectorales*/
-        Ejercicio g1 = new Ejercicio(7,"Levantamiento de mancuerna en inclinacion");
+        Ejercicio g1 = new Ejercicio(7,"Levantamiento de mancuernas en inclinacion");
         ejercicios.add(g1);
-        Ejercicio g2 = new Ejercicio(7,"Press de banca con inclinacion");
+        Ejercicio g2 = new Ejercicio(7,"Press de banca inclinado");
         ejercicios.add(g2);
-        Ejercicio g3 = new Ejercicio(7,"Apertura de mancuernas con inclinacion");
+        Ejercicio g3 = new Ejercicio(7,"Apertura de mancuernas inclinado");
         ejercicios.add(g3);
+        Ejercicio g4 = new Ejercicio(7,"Dumbbell frontal raise");
+        ejercicios.add(g4);
+        Ejercicio g5 = new Ejercicio(7,"Levantamiento de mancuernas en plano");
+        ejercicios.add(g5);
+        Ejercicio g6 = new Ejercicio(7,"Flexiones de brazo");
+        ejercicios.add(g6);
+        Ejercicio g7 = new Ejercicio(7,"Ejercicio pectorales uno");
+        ejercicios.add(g7);
 
         return ejercicios;
     }
@@ -212,7 +250,7 @@ public class Informacion {
         return salida;
     }
 
-    private String diaAnterior(String fecha) {
+    public String diaAnterior(String fecha) {
         Rutina r = infoRutina.buscarRutina(fecha);
         if(r!=null){
             Rutina rr = infoRutina.buscarRutinaId(r.idRutina-1);

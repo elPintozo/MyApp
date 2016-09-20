@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,9 +21,6 @@ import Resource.Informacion;
 
 public class ultimosEjerciciosController extends AppCompatActivity {
 
-    private Button btnComenzarRutina;
-    private Button btnVolverAMain;
-
     private InfoRutinaSinConexion infoRutina;
     private Extra extra;
     private int idRutina;
@@ -29,6 +30,7 @@ public class ultimosEjerciciosController extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,9 @@ public class ultimosEjerciciosController extends AppCompatActivity {
         infoRutina = new InfoRutinaSinConexion(this);
         extra =  new Extra();
         info = new Informacion(this);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_ultimos_ejercicios);
+        this.setSupportActionBar(toolbar);
         /******************************************************************************************/
         //recibo info de la activity anterior
         Intent i = getIntent();
@@ -58,40 +63,36 @@ public class ultimosEjerciciosController extends AppCompatActivity {
 
         String fecha = extra.getFechaCompleta(1);
         ArrayList<String> ultimosEjercicio = info.ultimosEjercicios(getApplicationContext(),fecha);
-        adapter = new RecyclerAdapterUltimosMusculosEjercitados(ultimosEjercicio, fecha, this);
+        String fechaa = info.diaAnterior(fecha);
+        adapter = new RecyclerAdapterUltimosMusculosEjercitados(ultimosEjercicio, fechaa, this);
         recycler.setAdapter(adapter);
         /*----------------------------------------------------------------------------------------*/
-        /******************************************************************************************/
-        /******************************************************************************************/
-        //Inicializo los botones correspondientes a la vista
-        btnComenzarRutina = (Button)findViewById(R.id.btnComenzarRutina);
-        btnVolverAMain = (Button)findViewById(R.id.btnVolverAMain);
-        /******************************************************************************************/
-        //asignacion Onclick a los botones
-        /***************************
-         BOTON COMENZAR RUTINA
-         ***************************/
-        btnComenzarRutina.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                Intent i = new Intent(ultimosEjerciciosController.this, MiRutinaController.class);
-                //crear un registro de la rutina y enviar id de ella
-                int id = infoRutina.idProximaRutina();
-                i.putExtra("idRutina",id);
-                startActivity(i);
-            }
-        });
-        /***************************
-         BOTON VOLVER AL INICIO
-         ***************************/
-        btnVolverAMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_toolbar_rutina_anterior,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.volver_menu_principal:
                 finish();
                 Intent i = new Intent(ultimosEjerciciosController.this, MainActivity.class);
                 startActivity(i);
-            }
-        });
+                break;
+            case R.id.comenzar_rutina:
+                finish();
+                Intent i2 = new Intent(ultimosEjerciciosController.this, MiRutinaController.class);
+                //crear un registro de la rutina y enviar id de ella
+                int id = infoRutina.idProximaRutina();
+                i2.putExtra("idRutina",id);
+                startActivity(i2);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

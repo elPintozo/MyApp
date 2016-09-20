@@ -66,7 +66,7 @@ public class RecyclerAdapterEjercicio extends  RecyclerView.Adapter<RecyclerAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.nombre.setText(ejercicios.get(position).nombreEjercicio);
         String i = ejercicios.get(position).nombreEjercicio.toLowerCase().replace(' ','_');
-        int m = context.getResources().getIdentifier(i,"mipmap",context.getPackageName());
+        int m = context.getResources().getIdentifier(i,"drawable",context.getPackageName());
         holder.imagen.setImageResource(m);
     }
 

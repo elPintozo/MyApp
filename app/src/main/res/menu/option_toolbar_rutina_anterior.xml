@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      tools:context=".MiRutinaController">
+    <item
+        android:id="@+id/volver_menu_principal"
+        android:icon="@mipmap/back"
+        android:title="volver"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/comenzar_rutina"
+        android:icon="@mipmap/next"
+        android:title="Comenzar Rutina"
+        app:showAsAction="always"/>
+</menu>
