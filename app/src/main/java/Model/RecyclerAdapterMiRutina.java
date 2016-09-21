@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.thepintozo.myappgym.R;
 
 import java.util.ArrayList;
@@ -62,7 +63,13 @@ public class RecyclerAdapterMiRutina extends RecyclerView.Adapter<RecyclerAdapte
                                   " series, \n con diferentes ejercicios.");
             String i = ultimos.get(position).nombreMusculo.toLowerCase().replace(' ','_');
             int m = context.getResources().getIdentifier(i,"drawable",context.getPackageName());
-            holder.imagen.setImageResource(m);
+            Glide.with(context)
+                    .load(m)
+                    .placeholder(R.drawable.cargando)
+                    .error(R.drawable.error)
+                    .override(200, 200)
+                    .centerCrop()
+                    .into(holder.imagen);
         }catch (Exception e){
             String i = ultimos.get(position).nombreMusculo.toLowerCase().replace(' ','_');
             holder.nombre.setText("Error: "+i);

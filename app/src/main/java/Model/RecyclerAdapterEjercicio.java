@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.thepintozo.myappgym.ComenzarEjercicioController;
 import com.thepintozo.myappgym.R;
 
@@ -64,10 +65,21 @@ public class RecyclerAdapterEjercicio extends  RecyclerView.Adapter<RecyclerAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nombre.setText(ejercicios.get(position).nombreEjercicio);
-        String i = ejercicios.get(position).nombreEjercicio.toLowerCase().replace(' ','_');
-        int m = context.getResources().getIdentifier(i,"drawable",context.getPackageName());
-        holder.imagen.setImageResource(m);
+        try {
+            holder.nombre.setText(ejercicios.get(position).nombreEjercicio);
+            String i = ejercicios.get(position).nombreEjercicio.toLowerCase().replace(' ','_');
+            int m = context.getResources().getIdentifier(i,"drawable",context.getPackageName());
+            Glide.with(context)
+                    .load(m)
+                    .placeholder(R.drawable.cargando)
+                    .error(R.drawable.error)
+                    .override(200, 200)
+                    .centerCrop()
+                    .into(holder.imagen);
+        }catch (Exception e){
+            holder.nombre.setText("Error");
+            holder.imagen.setImageResource(R.drawable.error);
+        }
     }
 
     @Override

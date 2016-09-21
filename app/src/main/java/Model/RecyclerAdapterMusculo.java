@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.thepintozo.myappgym.R;
 import com.thepintozo.myappgym.SeleccionarEjercicioController;
 
@@ -69,7 +70,13 @@ public class RecyclerAdapterMusculo extends RecyclerView.Adapter<RecyclerAdapter
             holder.nombre.setText(musculos.get(position).nombreMusculo);
             String i = musculos.get(position).nombreMusculo.toLowerCase().replace(' ','_');
             int m = context.getResources().getIdentifier(i,"drawable",context.getPackageName());
-            holder.imagen.setImageResource(m);
+            Glide.with(context)
+                    .load(m)
+                    .placeholder(R.drawable.cargando)
+                    .error(R.drawable.error)
+                    .override(200, 200)
+                    .centerCrop()
+                    .into(holder.imagen);
         }catch (Exception e){
             holder.nombre.setText("Error");
             holder.imagen.setImageResource(R.drawable.error);
