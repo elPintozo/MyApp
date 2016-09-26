@@ -69,7 +69,6 @@ public class RecyclerAdapterUltimosMusculosEjercitados extends  RecyclerView.Ada
                     .placeholder(R.drawable.cargando)
                     .error(R.drawable.error)
                     .override(350, 350)
-                    .centerCrop()
                     .into(holder.imagen);
         }catch (Exception e){
             holder.nombre.setText("Error");

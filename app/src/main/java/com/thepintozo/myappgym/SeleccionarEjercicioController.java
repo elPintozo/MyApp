@@ -49,6 +49,14 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_seleccionar_ejercicio);
         this.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SeleccionarEjercicioController.this, SeleccionarMusculoController.class);
+                startActivity(i);
+            }
+        });
         /******************************************************************************************/
         //recibo info de la seleccion anterior
         Intent i = getIntent();
@@ -65,7 +73,8 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
         /******************************************************************************************/
         /*cargo el recyclerView con el cardview de los ejercicios*/
         recycler = (RecyclerView) findViewById(R.id.recyclerEjercicio);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this,2, LinearLayoutManager.VERTICAL,false);
+        //layoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(layoutManager);
 
 
@@ -87,10 +96,10 @@ public class SeleccionarEjercicioController extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.volver_seleccionar_ejercicio:
+            /*case R.id.volver_seleccionar_ejercicio:
                 finish();
                 Intent i = new Intent(SeleccionarEjercicioController.this, SeleccionarMusculoController.class);
-                startActivity(i);
+                startActivity(i);*/
             default:
                 return super.onOptionsItemSelected(item);
         }

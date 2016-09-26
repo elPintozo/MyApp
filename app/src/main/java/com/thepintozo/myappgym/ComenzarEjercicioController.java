@@ -107,16 +107,17 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         btnDescanzarEjercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 /*Aqui si se preciona el boton descanso y no ha comenzado ningun ejercicios,
                  no cuenta como una repeticion realizada*/
-                tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
+                /*tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
                 if(tiempoEjercicioInicial!=0){
                     tiempoDescanso.setBase(SystemClock.elapsedRealtime());
                     tiempoDescanso.start();
                     tiempoEjericio.stop();
                     tiempoEjericio.setBase(SystemClock.elapsedRealtime());
                     ayuda.Mensaje(getApplicationContext(),"Tómate un respiro!");
-                }
+                }*/
             }
         });
         /***************************
@@ -126,18 +127,44 @@ public class ComenzarEjercicioController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
+                if(btnComenzarEjercicio.getText().equals("Comenzar")){
+                    btnComenzarEjercicio.setText(R.string.btnBreakExercise);//cambio el texto del boton
+                    /*Para saber si se ha realizado o no una repeticion, basta con analizar el valor
+                    que posee la variable tiempo de descanso, ya que, de haber registrado segundo, da
+                    pie para llevar a cabo el registro*/
+                    tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
+                    if(tiempoDescansoInicial!=0 ){
+                        actualizarSeries();
+                    }
+                    tiempoEjericio.setBase(SystemClock.elapsedRealtime());
+                    tiempoEjericio.start();
+                    tiempoDescanso.stop();
+                    tiempoDescanso.setBase(SystemClock.elapsedRealtime());
+                    ayuda.Mensaje(getApplicationContext(),"Adelante!");
+                }
+                else{
+                    btnComenzarEjercicio.setText(R.string.btnStartExercise);//cambio el texto del boton
+                    tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
+                    if(tiempoEjercicioInicial!=0){
+                        tiempoDescanso.setBase(SystemClock.elapsedRealtime());
+                        tiempoDescanso.start();
+                        tiempoEjericio.stop();
+                        tiempoEjericio.setBase(SystemClock.elapsedRealtime());
+                        ayuda.Mensaje(getApplicationContext(),"Tómate un respiro!");
+                    }
+                }
+                //tiempoDescansoInicial= ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
                 /*Para saber si se ha realizado o no una repeticion, basta con analizar el valor
                 que posee la variable tiempo de descanso, ya que, de haber registrado segundo, da
                 pie para llevar a cabo el registro*/
-                if(tiempoDescansoInicial!=0 ){
+                /*if(tiempoDescansoInicial!=0 ){
                     actualizarSeries();
                 }
                 tiempoEjericio.setBase(SystemClock.elapsedRealtime());
                 tiempoEjericio.start();
                 tiempoDescanso.stop();
                 tiempoDescanso.setBase(SystemClock.elapsedRealtime());
-                ayuda.Mensaje(getApplicationContext(),"Adelante!");
+                ayuda.Mensaje(getApplicationContext(),"Adelante!");*/
             }
         });
         /***************************

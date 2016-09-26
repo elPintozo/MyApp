@@ -36,6 +36,15 @@ public class SeleccionarMusculoController extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_seleccionar_musculo);
         this.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent i = new Intent(SeleccionarMusculoController.this, MiRutinaController.class);
+                startActivity(i);
+            }
+        });
         /******************************************************************************************/
         //recibo info de la activity anterior
         Intent i = getIntent();
@@ -76,10 +85,10 @@ public class SeleccionarMusculoController extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.volver_seleccionar_musculo:
+            /*case R.id.volver_seleccionar_musculo:
                 finish();
                 Intent i = new Intent(SeleccionarMusculoController.this, MiRutinaController.class);
-                startActivity(i);
+                startActivity(i);*/
             default:
                 return super.onOptionsItemSelected(item);
         }

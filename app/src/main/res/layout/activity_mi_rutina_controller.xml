@@ -81,7 +81,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3">
+        android:layout_weight="6">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -111,10 +111,5 @@
                 style="@style/styleTextButtom" />
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></LinearLayout>
     </LinearLayout>
 </LinearLayout>

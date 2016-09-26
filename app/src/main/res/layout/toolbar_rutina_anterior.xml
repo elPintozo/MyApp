@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
+    style="tit"
     app:title="@string/lblTitleRoutineStart"
     app:titleTextColor="@color/colorIcons"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">

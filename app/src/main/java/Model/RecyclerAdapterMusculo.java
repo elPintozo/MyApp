@@ -75,7 +75,6 @@ public class RecyclerAdapterMusculo extends RecyclerView.Adapter<RecyclerAdapter
                     .placeholder(R.drawable.cargando)
                     .error(R.drawable.error)
                     .override(200, 200)
-                    .centerCrop()
                     .into(holder.imagen);
         }catch (Exception e){
             holder.nombre.setText("Error");

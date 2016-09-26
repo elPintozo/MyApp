@@ -68,7 +68,6 @@ public class RecyclerAdapterMiRutina extends RecyclerView.Adapter<RecyclerAdapte
                     .placeholder(R.drawable.cargando)
                     .error(R.drawable.error)
                     .override(200, 200)
-                    .centerCrop()
                     .into(holder.imagen);
         }catch (Exception e){
             String i = ultimos.get(position).nombreMusculo.toLowerCase().replace(' ','_');

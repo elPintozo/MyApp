@@ -3,15 +3,15 @@
       xmlns:tools="http://schemas.android.com/tools"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       tools:context=".MiRutinaController">
-    <item
-        android:id="@+id/volver_menu_principal"
-        android:icon="@mipmap/back"
-        android:title="volver"
-        app:showAsAction="always"/>
 
     <item
         android:id="@+id/comenzar_rutina"
-        android:icon="@mipmap/next"
-        android:title="Comenzar Rutina"
+        android:title="Comenzar"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/volver_menu_principal"
+        android:title="volver"
+        app:showAsAction="always"/>
+
+
 </menu>
