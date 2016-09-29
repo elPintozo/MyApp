@@ -4,10 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
-    style="tit"
     app:title="@string/lblTitleRoutineStart"
-    app:titleTextColor="@color/colorIcons"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    app:titleTextColor="@color/colorPrimaryDark"
+    app:theme="@style/ToolbarTheme">
 
 </android.support.v7.widget.Toolbar>

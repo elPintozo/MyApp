@@ -41,6 +41,15 @@ public class ultimosEjerciciosController extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_ultimos_ejercicios);
         this.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent i = new Intent(ultimosEjerciciosController.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         /******************************************************************************************/
         //recibo info de la activity anterior
         Intent i = getIntent();
@@ -79,11 +88,6 @@ public class ultimosEjerciciosController extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.volver_menu_principal:
-                finish();
-                Intent i = new Intent(ultimosEjerciciosController.this, MainActivity.class);
-                startActivity(i);
-                break;
             case R.id.comenzar_rutina:
                 finish();
                 Intent i2 = new Intent(ultimosEjerciciosController.this, MiRutinaController.class);

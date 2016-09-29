@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,8 +23,6 @@ import Resource.Informacion;
 
 public class MiRutinaController extends AppCompatActivity {
 
-    private Button btnTerminePorHoy;
-    private Button btnNuevoEjercicio;
     private int idRutina;
     private Extra extra;
     private Informacion info;
@@ -29,11 +31,24 @@ public class MiRutinaController extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_rutina_controller);
         info = new Informacion(this);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_mi_rutina);
+        this.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent i = new Intent(MiRutinaController.this, ultimosEjerciciosController.class);
+                startActivity(i);
+            }
+        });
         /******************************************************************************************/
         //recibo info de la seleccion anterior
         Intent i = getIntent();
@@ -59,36 +74,24 @@ public class MiRutinaController extends AppCompatActivity {
         ArrayList<CapsulaEjercicio> ultimos = info.EjerciciosRutinaActual(getApplicationContext(),fecha);
         adapter = new RecyclerAdapterMiRutina(ultimos, this);
         recycler.setAdapter(adapter);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_toolbar_mi_rutina,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-        /*----------------------------------------------------------------------------------------*/
-        //Inicializo los botones correspondientes a la vista
-        btnNuevoEjercicio = (Button)findViewById(R.id.btnAnadirEjercicio);
-        btnTerminePorHoy  = (Button)findViewById(R.id.btnNoMasPorHoy);
-
-        /******************************************************************************************/
-        //asignacion Onclick a los botones
-        /***************************
-         BOTON TERMINAR RUTINA
-         ***************************/
-        btnTerminePorHoy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                Intent i = new Intent(MiRutinaController.this, ultimosEjerciciosController.class);
-                startActivity(i);
-            }
-        });
-        /***************************
-         BOTON AÑADIR EJERCICIO
-         ***************************/
-        btnNuevoEjercicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.anadir_ejercicio:
                 finish();
                 Intent i2 = new Intent(MiRutinaController.this, SeleccionarMusculoController.class);
                 i2.putExtra("idRutina",idRutina);
                 startActivity(i2);
-            }
-        });
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

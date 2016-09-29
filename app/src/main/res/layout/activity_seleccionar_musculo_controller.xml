@@ -10,28 +10,11 @@
         android:id="@+id/toolbar_seleccionar_musculo"
         layout="@layout/toolbar_seleccionar_musculo"/>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal">
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclerMusculo"
-                android:layout_margin="5dp">
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-    </LinearLayout>
+        android:id="@+id/recyclerMusculo"
+        android:layout_margin="5dp">
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -51,7 +51,9 @@ public class InfoMusculoSinConexion{
      * @return [Musculo] : Un objeto de tipo musculo
      */
     public Musculo buscarMusculo(int idMusculo){
+
         Musculo m;
+
         //Conexion de consulta con la BD
         SQLiteDatabase bd = data.getReadableDatabase();
         //el id del elemento que busco

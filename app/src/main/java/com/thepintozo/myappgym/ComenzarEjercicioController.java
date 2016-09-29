@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,9 +25,7 @@ import Resource.InfoRutinaSinConexion;
 
 public class ComenzarEjercicioController extends AppCompatActivity {
 
-    private Button btnDescanzarEjercicio;
     private Button btnComenzarEjercicio;
-    private Button btnTermineEjericio;
     private Button btnUnidad;
 
     private Chronometer tiempoDescanso;
@@ -51,6 +53,8 @@ public class ComenzarEjercicioController extends AppCompatActivity {
     private List<String> Lpesos;
     private List<String> Lseries;
 
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,26 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         infoRepeticion = new InfoRepeticionSinConexion(this);
         infoRutina =  new InfoRutinaSinConexion(this);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar_comenzar_ejercicio);
+        this.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Para saber si se debe o no realizar un registro basta con saber si cuando termino,
+                se encontraba activo el tiempo de descanso, no cuenta el tiempo de ejercicio porque
+                contaria como ejercicio incompleto al no haber realizado el descanso correspondiente*/
+                tiempoDescansoInicial = ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
+                if(tiempoDescansoInicial!=0){
+                    /*lleva a cabo el registro en la base de datos*/
+                    actualizarSeries();
+                }
+                finish();
+                Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
+                i.putExtra("idRutina",idRutina);
+                startActivity(i);
+            }
+        });
         /******************************************************************************************/
         /*Recibo las variables de la vista anterior*/
         Intent i = getIntent();
@@ -82,9 +106,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
 
         /******************************************************************************************/
         //Inicializo los botones correspondientes a la vista
-        btnDescanzarEjercicio = (Button)findViewById(R.id.btnDescanzar);
         btnComenzarEjercicio = (Button)findViewById(R.id.btnContinuarConEjercicio);
-        btnTermineEjericio = (Button)findViewById(R.id.btnTermineEjercicio);
         btnUnidad  = (Button)findViewById(R.id.btnUmedida);
         btnComenzarEjercicio.setFocusable(true);
         btnComenzarEjercicio.setFocusableInTouchMode(true);///add this line
@@ -102,25 +124,6 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         /******************************************************************************************/
         //asignacion Onclick a los botones
         /***************************
-         BOTON DESCANZO
-         ***************************/
-        btnDescanzarEjercicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                /*Aqui si se preciona el boton descanso y no ha comenzado ningun ejercicios,
-                 no cuenta como una repeticion realizada*/
-                /*tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
-                if(tiempoEjercicioInicial!=0){
-                    tiempoDescanso.setBase(SystemClock.elapsedRealtime());
-                    tiempoDescanso.start();
-                    tiempoEjericio.stop();
-                    tiempoEjericio.setBase(SystemClock.elapsedRealtime());
-                    ayuda.Mensaje(getApplicationContext(),"Tómate un respiro!");
-                }*/
-            }
-        });
-        /***************************
          BOTON CONTINUAR
          ***************************/
         btnComenzarEjercicio.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +132,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
 
                 if(btnComenzarEjercicio.getText().equals("Comenzar")){
                     btnComenzarEjercicio.setText(R.string.btnBreakExercise);//cambio el texto del boton
+                    btnComenzarEjercicio.setBackgroundResource(R.color.colorPrimary);
                     /*Para saber si se ha realizado o no una repeticion, basta con analizar el valor
                     que posee la variable tiempo de descanso, ya que, de haber registrado segundo, da
                     pie para llevar a cabo el registro*/
@@ -144,6 +148,7 @@ public class ComenzarEjercicioController extends AppCompatActivity {
                 }
                 else{
                     btnComenzarEjercicio.setText(R.string.btnStartExercise);//cambio el texto del boton
+                    btnComenzarEjercicio.setBackgroundResource(R.color.colorSecondaryText);
                     tiempoEjercicioInicial = ayuda.enSegundos(String.valueOf(tiempoEjericio.getText()));
                     if(tiempoEjercicioInicial!=0){
                         tiempoDescanso.setBase(SystemClock.elapsedRealtime());
@@ -182,27 +187,6 @@ public class ComenzarEjercicioController extends AppCompatActivity {
                     btnUnidad.setText("Kilo");
                     Umedida=1;
                 }
-            }
-        });
-        /***************************
-         BOTON FINALIZAR
-         ***************************/
-        btnTermineEjericio.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View view) {
-                /*Para saber si se debe o no realizar un registro basta con saber si cuando termino,
-                se encontraba activo el tiempo de descanso, no cuenta el tiempo de ejercicio porque
-                contaria como ejercicio incompleto al no haber realizado el descanso correspondiente*/
-                tiempoDescansoInicial = ayuda.enSegundos(String.valueOf(tiempoDescanso.getText()));
-                if(tiempoDescansoInicial!=0){
-                    /*lleva a cabo el registro en la base de datos*/
-                    actualizarSeries();
-                }
-                finish();
-                Intent i = new Intent(ComenzarEjercicioController.this, MiRutinaController.class);
-                i.putExtra("idRutina",idRutina);
-                startActivity(i);
             }
         });
         /******************************************************************************************/
@@ -252,8 +236,8 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         for(int y=1 ; y<51 ; y++){
             Lseries.add(String.valueOf(y));
         }
-        ArrayAdapter<String> dataAdapterPeso = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Lpesos);
-        ArrayAdapter<String> dataAdapterSerie = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Lseries);
+        ArrayAdapter<String> dataAdapterPeso = new ArrayAdapter<String>(this, R.layout.spinner_item, Lpesos);
+        ArrayAdapter<String> dataAdapterSerie = new ArrayAdapter<String>(this, R.layout.spinner_item, Lseries);
 
         dataAdapterPeso.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         dataAdapterSerie.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -297,6 +281,24 @@ public class ComenzarEjercicioController extends AppCompatActivity {
         //añado la serie al array que aparece en la vista
         Serie serie = new Serie(id,pesoF,seriesF,tiempoDescansoInicial,tiempoEjercicioInicial);
         series.add(serie);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_toolbar_comenzar_ejercicios,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            /*case R.id.volver_seleccionar_ejercicio:
+                finish();
+                Intent i = new Intent(SeleccionarEjercicioController.this, SeleccionarMusculoController.class);
+                startActivity(i);*/
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 

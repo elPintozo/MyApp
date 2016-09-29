@@ -6,20 +6,14 @@
     android:orientation="vertical"
     tools:context="com.thepintozo.myappgym.MainActivity">
 
+    <include
+        android:id="@+id/toolbar_main"
+        layout="@layout/toolbar_main"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/profileImage"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorIcons"
-            android:layout_marginBottom="10dp" />
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,51 +24,36 @@
             android:layout_centerHorizontal="true"
             style="@style/styleTittle" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/lblVersion"
-            android:id="@+id/lblVersion"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            style="@style/styleSubTittle" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/profileImage"
+            android:background="@color/colorIcons"
+            android:layout_marginTop="71dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6">
+        android:layout_weight="3">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:baselineAligned="false"
-                android:padding="5dp">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/btnExit"
-                    android:id="@+id/btnSalir"
-                    android:layout_weight="1"
-                    android:background="@color/colorDivider"
-                    android:layout_margin="2dp"
-                    style="@style/styleTextButtom" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/btnStart"
-                    android:id="@+id/btnComenzar"
-                    android:layout_weight="1"
-                    android:background="@color/colorSecondaryText"
-                    android:layout_margin="2dp"
-                    style="@style/styleTextButtom" />
-            </LinearLayout>
-
+        <Button
+            android:layout_height="match_parent"
+            android:text="@string/btnStart"
+            android:id="@+id/btnComenzar"
+            android:background="@color/colorPrimary"
+            android:layout_margin="10dp"
+            style="@style/styleTextButtom"
+            android:layout_width="match_parent" />
     </LinearLayout>
+    <TextView
+        android:layout_height="wrap_content"
+        android:text="@string/lblVersion"
+        android:gravity="right"
+        android:id="@+id/lblVersion"
+        style="@style/styleSubTittle"
+        android:layout_width="match_parent" />
 </LinearLayout>

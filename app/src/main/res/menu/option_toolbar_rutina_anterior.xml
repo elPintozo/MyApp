@@ -7,11 +7,6 @@
     <item
         android:id="@+id/comenzar_rutina"
         android:title="Comenzar"
+        android:icon="@mipmap/icon_comenzar"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/volver_menu_principal"
-        android:title="volver"
-        app:showAsAction="always"/>
-
-
 </menu>
